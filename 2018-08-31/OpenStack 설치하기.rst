@@ -11,23 +11,25 @@
 1. Cafe24 Server
 -----------------
 
-Cafe24에서 서버를 받았다!!! (감사합니다..)
+지난 번에 신청한 Cafe24에서 서버를 받았다!!! (감사합니다..)
 
-Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``서버 IP`` 에서 확인할 수 있고,
+IP는 Cafe24로 로그인을 진행한 이후 ``나의 서비스 관리`` > ``서버 IP`` 에서 확인할 수 있고,
 
-``서버 임시 접속 정보`` > ``정보 보기`` 를 누르면 계정과 비밀번호를 알 수 있다.
+``서버 임시 접속 정보`` > ``정보 보기`` 를 누르면 서버에 접속하는 계정과 비밀번호를 알 수 있다.
 
-**세팅일로부터 2주후에는 확인이 불가하니, 그 전에 정보를 잘 저장해 놓거나, 변경하면 된다!**
+**세팅일로부터 2주후에는 확인이 안되니, 그 전에 정보를 잘 저장해 놓거나, 변경하면 된다!**
 
 그럼 IP와 세팅된 임시 패스워드로 접속한다.
 
 ``ssh root@ip``
 
-패스워드로 접속을 한 이후 기존의 임시 패스워드를 변경해준다.
+패스워드를 쳐서 접속을 한 이후 기존의 임시 패스워드를 변경해준다.
 
 ``passwd root``
 
 를 하면 새로운 비밀번호를 입력할 수 있다!
+
+새로운 비밀번호로 서버에 접속하면 첫 번째 단계를 성공한 것이다.
 
  (아 그리고 혹시 저처럼 서버로 이것저것 해보다가 터트릴 수 있습니다. 조심하세요..)
 
@@ -35,11 +37,13 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 2. VirtualBox & Vagrant
 ------------------------
 
+CentOS 서버에서 vm을 설치하여 그 곳에서 devstack을 설치하려고 한다.
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 2.1 VirtualBox & Vagrant 정의
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-설치하기 전에 우리가 설치하게될 것들이 무엇인지 간단하게 알아보자.
+설치하기 전에 우리가 설치하게될 것들이 무엇인지 간단하게 정의를 찾아보았다.
 
 * VirtualBox
 
@@ -53,12 +57,11 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 
 즉 ``VirtualBox`` 를 이용하면, 손쉽게 VM환경을 구축할 수 있지만 번거로운 작업이기 때문에 이를 자동화 해주기 위해 개발된 것이 ``Vagrant`` 이다.
 
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 2.2 VirtualBox & Vagrant 설치
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-그럼 이들을 이제 설치해보자.
+이제 아래의 명령어들을 차례대로 입력하면서 설치를 진행하면 된다.
 
 ``wget -O /etc/yum.repos.d/virtualbox.repo http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo``
 
@@ -68,8 +71,7 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 
 ``rpm -ivh https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm``
 
- 만약 다운로드가 느리다면 ``wget https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm`` 
- 그리고 ``rpm vagrant_2.1.4_x86_64.rpm`` 를 입력하면 다운로드가 진행된다.
+ 만약 다운로드가 느리다면 ``wget https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm`` 을 한 후 ``rpm vagrant_2.1.4_x86_64.rpm`` 를 입력하면 다운로드가 진행된다.
 
 ``mkdir contributhon``
 
@@ -88,40 +90,40 @@ Vagrantfile에는 아래와 같은 정보를 입력한다::
    config.vm.network "forwarded_port", guest: 80, host: 8080
   end
 
-+) ``config.vm.network "forwarded_port", guest: 80, host: 8080`` 
- - guest의 80이란 vm의 80 포트를 의미하여 host의 8080은 말그대로 호스트의 8080포트를 의미한다.
- - 즉 vm의 80포트를 host의 8080포트에 연결한다는 뜻이다.
++) ``config.vm.network "forwarded_port", guest: 80, host: 8080`` 의 의미를 찾아보았다. 
+ - guest의 80이란 vm의 80 포트를 의미하여 host의 8080은 말그대로 호스트의 8080 포트를 의미한다.
+ - 즉 vm의 80 포트를 host의 8080 포트에 연결한다는 뜻이다.
  - openstack을 설치한 이후 ip:8080을 하면 openstack dashboard에 접속할 수 있다.
 
 ``vagrant up`` : 설정한 정보대로 vm이 생성된다.
 
 ``vagrant ssh`` : vm에 접속한다.
 
-여기까지해서 접속했다면 성공이다!!!
+여기까지해서 접속했다면 vm 설치는 성공이다!!!
 
 --------------------------------
 3. devstack Install
 --------------------------------
 
+이제 devstack을 설치할 차례이다.
+
 ~~~~~~~~~~~~~~~~~
 3.1 devstack 정의
 ~~~~~~~~~~~~~~~~~
 
-* 참고 : `dev stack 이란 <https://www.slideshare.net/ianychoi/openstack-devstack-install-1-allinone>`_
+마찬가지로 devstack이 무엇인지 간단하게 찾아보았다.
 
-* devstack이란?
+* `dev stack 이란 <https://www.slideshare.net/ianychoi/openstack-devstack-install-1-allinone>`_ 이란?
   - OpenStack 개발 환경을 구성하기 위한 스크립트
   - OpenStack의 구성 확인 및 테스트 용도로 사용
-
-* devstack installation type
-  1. All in One (Single-node) : linux 서버 한대에 openstack의 모든 구성 요소들을 설치
-  2. Multi-node : linux 서버 여러대에 openstack의 구성 요소들을 나누어 설치
 
 ~~~~~~~~~~~~~~~~~
 3.2 devstack 설치
 ~~~~~~~~~~~~~~~~~
 
-* 참고 : `devstack install 방법 <https://docs.openstack.org/devstack/latest/>`_
+이제 아래의 명령어들을 차례대로 입력하면서 설치를 진행하면 된다.
+
+* `devstack install 방법 <https://docs.openstack.org/devstack/latest/>`_ 에서 차례대로 진행하면 되는데, 공부한 기록을 남기기 위하여 따로 아래에 작성했다. 
 
 ``sudo useradd -s /bin/bash -d /opt/stack -m stack`` : 개별의 stack user를 생성한다.
 
@@ -138,14 +140,14 @@ Vagrantfile에는 아래와 같은 정보를 입력한다::
 위의 명령어를 입력하면 엄청나게 긴 글이 나온다 ::
 
   br-ex     Link encap:Ethernet  HWaddr 8a:a2:fd:f3:1d:4b
-          inet addr:172.24.4.1  Bcast:0.0.0.0  Mask:255.255.255.0
-          inet6 addr: fe80::88a2:fdff:fef3:1d4b/64 Scope:Link
-          inet6 addr: 2001:db8::2/64 Scope:Global
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:27 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:12 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1
-          RX bytes:1572 (1.5 KB)  TX bytes:1256 (1.2 KB)
+            inet addr:172.24.4.1  Bcast:0.0.0.0  Mask:255.255.255.0
+            inet6 addr: fe80::88a2:fdff:fef3:1d4b/64 Scope:Link
+            inet6 addr: 2001:db8::2/64 Scope:Global
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:27 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:12 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1
+            RX bytes:1572 (1.5 KB)  TX bytes:1256 (1.2 KB)
 
   enp0s3    Link encap:Ethernet  HWaddr 02:93:23:4d:82:b3
             inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
@@ -173,7 +175,9 @@ Vagrantfile에는 아래와 같은 정보를 입력한다::
             collisions:0 txqueuelen:1000
             RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-여기서 ``enp0s3``를 보면 ``inet addr:10.0.2.15``로  ubuntu가 10.0.2.15 ip로 설정된 것을 볼 수 있다.
+여기서 ``enp0s3`` 를 보면 ``inet addr:10.0.2.15`` 로  ubuntu가 10.0.2.15 ip로 설정된 것을 볼 수 있다.
+
+이 ip는 아래 local.conf의 HOST_IP에 작성해주면 된다.
 
 ``vim local.conf`` : local.conf 파일을 생성한다.
 
@@ -210,9 +214,9 @@ devstack 설치는 20~30분 정도가 소요된다.
 
 하지만 openstack에서는 sphinx를 사용하는데, 
 
-sphinx란 Python 코드 내에 들어간 docstring을 자동으로 문서화해주는 도구이며 아주 간단한 설정으로 쉽게 문서를 작성할 수 있다.
+sphinx란 Python 코드 내에 들어간 docstring을 자동으로 문서화해주고 아주 간단한 설정으로 쉽게 문서를 작성할 수 있게 하는 도구이다.
 
-이 문서를 작성하는 문법은 각자 공부하면 되며 아래는 오픈스택 문서이므로 참고하여 공부하면 좋다. 
+이 문서를 작성하는 문법을 공부할 때 아래의 오픈스택 문서를 참고하여 공부하면 좋다. 
 
 *  `openstack documentation <https://github.com/openstack/openstack-manuals/tree/master/doc>`_
 
@@ -272,13 +276,15 @@ commit message를 잘 작성하기 위해서 연습하라고 하셨다.
 
 ``eth0`` 에서 ``inet addr`` 를 보면 ip가 있는데 그 ip인 (여기서는 ``110.10.129.22`` )로 openstack dashboard으로 접속할 수 있다.
 
-http://110.10.129.22:8080/ 으로 접속이 되면 성공!!!!
+http://110.10.129.22:8080/ 으로 접속이 되면 성공이다!!!!
 
-수고하셨습니다.
+그럼 끝!!! 수고하셨습니다!!
 
 ====
 Tip
 ====
+
+devstack을 조금 더 편리하게 사용하기 위해서, 몇가지 팁과 공부할 자료를 주셨다.
 
 ----------
 1. Screen
@@ -288,9 +294,9 @@ Tip
 1.1. Screen 정의
 ~~~~~~~~~~~~~~~~~
 
-- linux에서 물리적인 터미널을 여러 개의 가상 터미널로 다중화해주는 도구이다. 각 screen으로 생성한 가상 터미널은 독립적으로 동작하며 사용자 세션이 분리되어도 동작한다.
+- linux에서 물리적인 터미널을 여러 개의 가상 터미널로 다중화해주는 도구이다. 각 screen으로 생성한 가상 터미널은 **독립적으로 동작하며 사용자 세션이 분리되어도 동작** 한다.
 
-- 이 도구는 백그라운드로 동작하는 다중 터미널을 만들어 백그라운드 작업을 간단히 수행할 수 있고, 중간에 끊더라도 다시 접속하면 같은 화면을 볼 수 있도록 한다.
+- 이 도구는 백그라운드로 동작하는 다중 터미널을 만들어 백그라운드 작업을 간단히 수행할 수 있고, 중**간에 끊더라도 다시 접속하면 같은 화면을 볼 수 있도록 한다.** 
 
 - 이를 이용해서 시간이 오래 걸리는 도구를 설치할 때에도 screen을 만들어 설치하고 screen을 나와도 설치는 중단되지 않고 실행되게 할 수 있다. 또한 카폐에서 작업을 하다가 집에 가더라도 screen으로 다시 접속하면 내가 작업하던 부분부터 확인할 수 있다. (!!!!!!)
 
