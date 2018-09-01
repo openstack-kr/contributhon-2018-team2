@@ -135,43 +135,43 @@ end
 
 ``$ sudo ifconfig``
 
-위의 명령어를 입력하면 엄청나게 긴 글이 나온다 ::
+위의 명령어를 입력하면 엄청나게 긴 글이 나온다::
 
-br-ex     Link encap:Ethernet  HWaddr 8a:a2:fd:f3:1d:4b
-inet addr:172.24.4.1  Bcast:0.0.0.0  Mask:255.255.255.0
-inet6 addr: fe80::88a2:fdff:fef3:1d4b/64 Scope:Link
-inet6 addr: 2001:db8::2/64 Scope:Global
-UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-RX packets:27 errors:0 dropped:0 overruns:0 frame:0
-TX packets:12 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1
-RX bytes:1572 (1.5 KB)  TX bytes:1256 (1.2 KB)
+  br-ex     Link encap:Ethernet  HWaddr 8a:a2:fd:f3:1d:4b
+            inet addr:172.24.4.1  Bcast:0.0.0.0  Mask:255.255.255.0
+            inet6 addr: fe80::88a2:fdff:fef3:1d4b/64 Scope:Link
+            inet6 addr: 2001:db8::2/64 Scope:Global
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:27 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:12 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1
+            RX bytes:1572 (1.5 KB)  TX bytes:1256 (1.2 KB)
 
-enp0s3    Link encap:Ethernet  HWaddr 02:93:23:4d:82:b3
-inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
-inet6 addr: fe80::93:23ff:fe4d:82b3/64 Scope:Link
-UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-RX packets:1106840 errors:0 dropped:0 overruns:0 frame:0
-TX packets:341418 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1000
-RX bytes:1103625143 (1.1 GB)  TX bytes:24041347 (24.0 MB)
+  enp0s3    Link encap:Ethernet  HWaddr 02:93:23:4d:82:b3
+            inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+            inet6 addr: fe80::93:23ff:fe4d:82b3/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:1106840 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:341418 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:1103625143 (1.1 GB)  TX bytes:24041347 (24.0 MB)
 
-lo        Link encap:Local Loopback
-inet addr:127.0.0.1  Mask:255.0.0.0
-inet6 addr: ::1/128 Scope:Host
-UP LOOPBACK RUNNING  MTU:65536  Metric:1
-RX packets:682153 errors:0 dropped:0 overruns:0 frame:0
-TX packets:682153 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1
-RX bytes:213601831 (213.6 MB)  TX bytes:213601831 (213.6 MB)
+  lo        Link encap:Local Loopback
+            inet addr:127.0.0.1  Mask:255.0.0.0
+            inet6 addr: ::1/128 Scope:Host
+            UP LOOPBACK RUNNING  MTU:65536  Metric:1
+            RX packets:682153 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:682153 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1
+            RX bytes:213601831 (213.6 MB)  TX bytes:213601831 (213.6 MB)
 
-virbr0    Link encap:Ethernet  HWaddr 52:54:00:f0:23:1b
-inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
-UP BROADCAST MULTICAST  MTU:1500  Metric:1
-RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1000
-RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+  virbr0    Link encap:Ethernet  HWaddr 52:54:00:f0:23:1b
+            inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
+            UP BROADCAST MULTICAST  MTU:1500  Metric:1
+            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 여기서 ``enp0s3`` 를 보면 ``inet addr:10.0.2.15`` 로  ubuntu가 10.0.2.15 ip로 설정된 것을 볼 수 있다.
 
@@ -208,13 +208,15 @@ devstack 설치는 20~30분 정도가 소요된다.
 
 잠깐 설치를 진행하는 동안 문서를 작성하는 방법에 대해서, 오늘 스터디를 한 내용을 github에 올리는 방법에 대해서 설명해 주셨다.
 
+1. Rst (Restructured Text)
+
 보통 문서를 작성할 때는 markdown을 많이 활용한다.
 
-하지만 openstack에서는 sphinx를 사용하는데, 
+하지만 openstack에서는 **rst(Restructured Text)** 를 사용하는데, 이 문법으로 작성하면 sphinx 라이브러리를 활용하여 html 또는 pdf로 build해 문서를 관리할 수도 있다.
 
-sphinx란 Python 코드 내에 들어간 docstring을 자동으로 문서화해주고 아주 간단한 설정으로 쉽게 문서를 작성할 수 있게 하는 도구이다.
+rst 문법을 공부할 때 `오픈스택 문서 <https://github.com/openstack/openstack-manuals/tree/master/doc>`_ , `짧은 문법 소개 <https://gist.github.com/ianychoi/31a00efd06c9a855bfbc15de6ec8d117>`_ 를 참고하여 공부하면 좋다. 
 
-이 문서를 작성하는 문법을 공부할 때 아래의 `오픈스택 문서 <https://github.com/openstack/openstack-manuals/tree/master/doc>`_ 를 참고하여 공부하면 좋다. 
+2. github
 
 문법을 공부하고 문서를 작성했다면, 해당 문서를 우리 팀의 github에 올려야한다.
 
@@ -252,23 +254,23 @@ commit message를 잘 작성하기 위해서 연습하라고 하셨다.
 
 ``$ sudo ifconfig`` 를 실행한다.::
 
-eth0      Link encap:Ethernet  HWaddr 00:25:90:B5:49:24
-inet addr:110.10.129.22  Bcast:110.10.129.127  Mask:255.255.255.128
-inet6 addr: fe80::225:90ff:feb5:4924/64 Scope:Link
-UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-RX packets:1247717 errors:0 dropped:0 overruns:0 frame:0
-TX packets:491484 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:1000
-RX bytes:1742171123 (1.6 GiB)  TX bytes:43531987 (41.5 MiB)
+  eth0      Link encap:Ethernet  HWaddr 00:25:90:B5:49:24
+            inet addr:110.10.129.22  Bcast:110.10.129.127  Mask:255.255.255.128
+            inet6 addr: fe80::225:90ff:feb5:4924/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:1247717 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:491484 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:1742171123 (1.6 GiB)  TX bytes:43531987 (41.5 MiB)
 
-lo        Link encap:Local Loopback
-inet addr:127.0.0.1  Mask:255.0.0.0
-inet6 addr: ::1/128 Scope:Host
-UP LOOPBACK RUNNING  MTU:65536  Metric:1
-RX packets:99913 errors:0 dropped:0 overruns:0 frame:0
-TX packets:99913 errors:0 dropped:0 overruns:0 carrier:0
-collisions:0 txqueuelen:0
-RX bytes:8029129 (7.6 MiB)  TX bytes:8029129 (7.6 MiB)
+  lo        Link encap:Local Loopback
+            inet addr:127.0.0.1  Mask:255.0.0.0
+            inet6 addr: ::1/128 Scope:Host
+            UP LOOPBACK RUNNING  MTU:65536  Metric:1
+            RX packets:99913 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:99913 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:0
+            RX bytes:8029129 (7.6 MiB)  TX bytes:8029129 (7.6 MiB)
 
 ``eth0`` 에서 ``inet addr`` 를 보면 ip가 있는데 그 ip인 (여기서는 ``110.10.129.22`` )로 openstack dashboard으로 접속할 수 있다.
 
