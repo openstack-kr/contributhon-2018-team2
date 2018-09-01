@@ -13,7 +13,7 @@
 
 Cafe24에서 서버를 받았다!!! (감사합니다..)
 
-Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``서버 IP `` 에서 확인할 수 있고,
+Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``서버 IP`` 에서 확인할 수 있고,
 
 ``서버 임시 접속 정보`` > ``정보 보기`` 를 누르면 계정과 비밀번호를 알 수 있다.
 
@@ -29,7 +29,7 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 
 를 하면 새로운 비밀번호를 입력할 수 있다!
 
-*(아 그리고 혹시 저처럼 서버로 이것저것 해보다가 터트릴 수 있습니다. 조심하세요..)*
+ (아 그리고 혹시 저처럼 서버로 이것저것 해보다가 터트릴 수 있습니다. 조심하세요..)
 
 ------------------------
 2. VirtualBox & Vagrant
@@ -41,7 +41,7 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 
 설치하기 전에 우리가 설치하게될 것들이 무엇인지 간단하게 알아보자.
 
- * VirtualBox
+* VirtualBox
 
 일반적으로 물리적인 시스템 OS 위에 논리적인 가상 OS 를 올려서 독립적인 동작이 가능하도록 하는 시스템 차원의 가상 머신
 
@@ -66,9 +66,10 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 
 ``yum install VirtualBox-5.2``
 
-``rpm -ivh https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm`` : rpm이란 download를 한다는 명령어 이다.
+``rpm -ivh https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm``
 
-  * 만약 다운로드가 느리다면 ``wget https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm`` 그리고 ``rpm vagrant_2.1.4_x86_64.rpm``를 입력하면 다운도르가 진행된다.
+ 만약 다운로드가 느리다면 ``wget https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm`` 
+ 그리고 ``rpm vagrant_2.1.4_x86_64.rpm`` 를 입력하면 다운로드가 진행된다.
 
 ``mkdir contributhon``
 
@@ -76,27 +77,27 @@ Cafe24로 로그인을 진행한 이후 IP는 ``나의 서비스 관리`` > ``�
 
 ``vim Vagrantfile``
 
-``
-Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
-  config.vm.provider "virtualbox" do |vb|
-      vb.memory = "6144"
-      vb.cpus = "6"
-  end
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-end
-``
+Vagrantfile에는 아래와 같은 정보를 입력한다::
 
-  * ``config.vm.network "forwarded_port", guest: 80, host: 8080`` 
-    - guest의 80이란 vm의 80 포트를 의미하여 host의 8080은 말그대로 호스트의 8080포트를 의미한다.
-    - 즉 vm의 80포트를 host의 8080포트에 연결한다는 뜻이다.
-    - openstack을 설치한 이후 ip:8080을 하면 openstack dashboard에 접속할 수 있다.
+  Vagrant.configure("2") do |config|
+   config.vm.box = "ubuntu/xenial64"
+   config.vm.provider "virtualbox" do |vb|
+    vb.memory = "6144"
+    vb.cpus = "6"
+   end
+   config.vm.network "forwarded_port", guest: 80, host: 8080
+  end
+
++) ``config.vm.network "forwarded_port", guest: 80, host: 8080`` 
+ - guest의 80이란 vm의 80 포트를 의미하여 host의 8080은 말그대로 호스트의 8080포트를 의미한다.
+ - 즉 vm의 80포트를 host의 8080포트에 연결한다는 뜻이다.
+ - openstack을 설치한 이후 ip:8080을 하면 openstack dashboard에 접속할 수 있다.
 
 ``vagrant up`` : 설정한 정보대로 vm이 생성된다.
 
 ``vagrant ssh`` : vm에 접속한다.
 
-여기까지해서 ubuntu에 접속했다면 성공이다!!!
+여기까지해서 접속했다면 성공이다!!!
 
 --------------------------------
 3. devstack Install
@@ -106,7 +107,7 @@ end
 3.1 devstack 정의
 ~~~~~~~~~~~~~~~~~
 
-* 참고 `dev stack 이란 <https://www.slideshare.net/ianychoi/openstack-devstack-install-1-allinone>`
+* 참고 : `dev stack 이란 <https://www.slideshare.net/ianychoi/openstack-devstack-install-1-allinone>`_
 
 * devstack이란?
   - OpenStack 개발 환경을 구성하기 위한 스크립트
@@ -120,7 +121,7 @@ end
 3.2 devstack 설치
 ~~~~~~~~~~~~~~~~~
 
-* 참고 : `devstack install 방법 <https://docs.openstack.org/devstack/latest/>`
+* 참고 : `devstack install 방법 <https://docs.openstack.org/devstack/latest/>`_
 
 ``sudo useradd -s /bin/bash -d /opt/stack -m stack`` : 개별의 stack user를 생성한다.
 
@@ -134,10 +135,9 @@ end
 
 ``sudo ifconfig``
 
-위의 명령어를 입력하면 엄청나게 긴 글이 나온다.
+위의 명령어를 입력하면 엄청나게 긴 글이 나온다 ::
 
-``
-br-ex     Link encap:Ethernet  HWaddr 8a:a2:fd:f3:1d:4b
+  br-ex     Link encap:Ethernet  HWaddr 8a:a2:fd:f3:1d:4b
           inet addr:172.24.4.1  Bcast:0.0.0.0  Mask:255.255.255.0
           inet6 addr: fe80::88a2:fdff:fef3:1d4b/64 Scope:Link
           inet6 addr: 2001:db8::2/64 Scope:Global
@@ -147,64 +147,58 @@ br-ex     Link encap:Ethernet  HWaddr 8a:a2:fd:f3:1d:4b
           collisions:0 txqueuelen:1
           RX bytes:1572 (1.5 KB)  TX bytes:1256 (1.2 KB)
 
-enp0s3    Link encap:Ethernet  HWaddr 02:93:23:4d:82:b3
-          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
-          inet6 addr: fe80::93:23ff:fe4d:82b3/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:1106840 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:341418 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:1103625143 (1.1 GB)  TX bytes:24041347 (24.0 MB)
+  enp0s3    Link encap:Ethernet  HWaddr 02:93:23:4d:82:b3
+            inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+            inet6 addr: fe80::93:23ff:fe4d:82b3/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:1106840 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:341418 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:1103625143 (1.1 GB)  TX bytes:24041347 (24.0 MB)
 
-lo        Link encap:Local Loopback
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:682153 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:682153 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1
-          RX bytes:213601831 (213.6 MB)  TX bytes:213601831 (213.6 MB)
+  lo        Link encap:Local Loopback
+            inet addr:127.0.0.1  Mask:255.0.0.0
+            inet6 addr: ::1/128 Scope:Host
+            UP LOOPBACK RUNNING  MTU:65536  Metric:1
+            RX packets:682153 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:682153 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1
+            RX bytes:213601831 (213.6 MB)  TX bytes:213601831 (213.6 MB)
 
-virbr0    Link encap:Ethernet  HWaddr 52:54:00:f0:23:1b
-          inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
-          UP BROADCAST MULTICAST  MTU:1500  Metric:1
-          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-``
+  virbr0    Link encap:Ethernet  HWaddr 52:54:00:f0:23:1b
+            inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
+            UP BROADCAST MULTICAST  MTU:1500  Metric:1
+            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 여기서 ``enp0s3``를 보면 ``inet addr:10.0.2.15``로  ubuntu가 10.0.2.15 ip로 설정된 것을 볼 수 있다.
 
-  - enp0s3이란?
-    : enp0s3이란 VirtualBox를 이용해 생성할 우분투 가상 서버의 네트워크 디바이스이며, 관리용 네트워크로 대시보드와 API에 접속할 수 있다. 
+``vim local.conf`` : local.conf 파일을 생성한다.
 
-  - virbr0 이란?
-    : guest들이 네트웍 서비스에 접근하는 것을 허락하게 하기 위해 사용된다. 
-
-``vim local.conf``
-
- * 여기서 localrc, local.conf의 차이를 말씀해 주셨는데, localrc는 옛날 버전이며 local.conf는 최신 버전이라고 한다.
+ 여기서 localrc, local.conf의 차이를 말씀해 주셨는데, localrc는 옛날 버전이며 local.conf는 최신 버전이라고 한다.
  local.conf만 생성했다고 해서 localrc가 생성되지 않는 것이 아니라 local.conf안에 localrc가 포함되어있다.
 
-``
-[[local|localrc]]
+local.config 내용 :
 
-HOST_IP=10.0.2.15
+  [[local|localrc]]
 
-ADMIN_PASSWORD=secret
-DATABASE_PASSWORD=$ADMIN_PASSWORD
-RABBIT_PASSWORD=$ADMIN_PASSWORD
-SERVICE_PASSWORD=$ADMIN_PASSWORD
-``
+  HOST_IP=10.0.2.15
+
+  ADMIN_PASSWORD=secret
+
+  DATABASE_PASSWORD=$ADMIN_PASSWORD
+  
+  RABBIT_PASSWORD=$ADMIN_PASSWORD
+  
+  SERVICE_PASSWORD=$ADMIN_PASSWORD
 
 ``local.conf`` 를 위와 같이 입력하고, 저장을 해준다.
 
 그럼 이제 ``./stack.sh`` 를 입력하여 devstack을 설치해준다!!!
 
 devstack 설치는 20~30분 정도가 소요된다.
-
-이 시간동안 rst에 관련해서 설명을 해주셨다.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~
 3.2.1 잠깐 쉬어가는 타임
@@ -220,17 +214,17 @@ sphinx란 Python 코드 내에 들어간 docstring을 자동으로 문서화해�
 
 이 문서를 작성하는 문법은 각자 공부하면 되며 아래는 오픈스택 문서이므로 참고하여 공부하면 좋다. 
 
-* `openstack documentation <https://github.com/openstack/openstack-manuals/tree/master/doc>`
+*  `openstack documentation <https://github.com/openstack/openstack-manuals/tree/master/doc>`_
 
 문법을 공부하고 문서를 작성했다면, 해당 문서를 우리 팀의 github에 올려야한다.
 
-일단 github에 들어가면 `openstack team1 <https://github.com/openstack-kr/contributhon-2018-team1/>` 오른쪽 위에 ``fork``라는 버튼이 보일 것이다.
+일단 github에 들어가면 `openstack team1 <https://github.com/openstack-kr/contributhon-2018-team1/>`_ 오른쪽 위에 ``fork`` 라는 버튼이 보일 것이다.
 
-이 fork는 OS에서 프로세스를 복제하여 자식 프로세스와 부모 프로세스로 나눈다는 의미와 같은 의미로 (처음 알았다..) 해당 github를 똑같이 복제하여 내 repository로 가져오는 것이다.
+이 fork는 OS에서 프로세스를 복제한다는 의미로 (처음 알았다..) 해당 github를 똑같이 복제하여 내 repository로 가져오는 것이다.
 
 이렇게 **복제한 곳에서는 commit을 하더라도, 본래의 github는 변경되지 않는다.**
 
-이렇게 복제된 자신만의 공간에서 문서를 작성하고 수정하고 수정이 끝난 문서들은 ``pull request``를 해야한다.
+이렇게 복제된 자신만의 공간에서 문서를 작성하고 수정하고 수정이 끝난 문서들은 ``pull request`` 를 해야한다.
 
 즉 본래의 github에 merge하기 위해 요청을 해야한다.
 
@@ -244,7 +238,7 @@ sphinx란 Python 코드 내에 들어간 docstring을 자동으로 문서화해�
 
 commit message를 잘 작성하기 위해서 연습하라고 하셨다.
 
-`좋은 깃(Git) 커밋 메시지 작성하기 <https://tech.ssut.me/2015/06/24/write-a-good-git-commit-message/>`를 참고하여 commit message를 작성하는 방법을 공부하자!
+`좋은 깃(Git) 커밋 메시지 작성하기 <https://tech.ssut.me/2015/06/24/write-a-good-git-commit-message/>`_ 를 참고하여 commit message를 작성하는 방법을 공부하자!
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 3.3 openstack dashboard 접속
@@ -254,31 +248,29 @@ commit message를 잘 작성하기 위해서 연습하라고 하셨다.
 
 설치가 끝난 이후에는 openstack dashboard로 접속해야한다.
 
-``exit``를 해 vagrant를 빠져 나온후
+``exit`` 를 해 vagrant를 빠져 나온후
 
-``sudo ifconfig``를 실행한다.
+``sudo ifconfig`` 를 실행한다.::
 
-``
-eth0      Link encap:Ethernet  HWaddr 00:25:90:B5:49:24
-          inet addr:110.10.129.22  Bcast:110.10.129.127  Mask:255.255.255.128
-          inet6 addr: fe80::225:90ff:feb5:4924/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:1247717 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:491484 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:1742171123 (1.6 GiB)  TX bytes:43531987 (41.5 MiB)
+  eth0      Link encap:Ethernet  HWaddr 00:25:90:B5:49:24
+            inet addr:110.10.129.22  Bcast:110.10.129.127  Mask:255.255.255.128
+            inet6 addr: fe80::225:90ff:feb5:4924/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:1247717 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:491484 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:1742171123 (1.6 GiB)  TX bytes:43531987 (41.5 MiB)
 
-lo        Link encap:Local Loopback
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:99913 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:99913 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0
-          RX bytes:8029129 (7.6 MiB)  TX bytes:8029129 (7.6 MiB)
-``
+  lo        Link encap:Local Loopback
+            inet addr:127.0.0.1  Mask:255.0.0.0
+            inet6 addr: ::1/128 Scope:Host
+            UP LOOPBACK RUNNING  MTU:65536  Metric:1
+            RX packets:99913 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:99913 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:0
+            RX bytes:8029129 (7.6 MiB)  TX bytes:8029129 (7.6 MiB)
 
-``eth0``에서 ``inet addr``를 보면 ip가 있는데 그 ip인 (여기서는 ``110.10.129.22``)로 openstack dashboard으로 접속할 수 있다.
+``eth0`` 에서 ``inet addr`` 를 보면 ip가 있는데 그 ip인 (여기서는 ``110.10.129.22`` )로 openstack dashboard으로 접속할 수 있다.
 
 http://110.10.129.22:8080/ 으로 접속이 되면 성공!!!!
 
@@ -296,13 +288,11 @@ Tip
 1.1. Screen 정의
 ~~~~~~~~~~~~~~~~~
 
-linux에서 물리적인 터미널을 여러 개의 가상 터미널로 다중화해주는 도구이다. 각 screen으로 생성한 가상 터미널은 독립적으로 동작하며 사용자 세션이 분리되어도 동작한다.
+- linux에서 물리적인 터미널을 여러 개의 가상 터미널로 다중화해주는 도구이다. 각 screen으로 생성한 가상 터미널은 독립적으로 동작하며 사용자 세션이 분리되어도 동작한다.
 
-이 도구는 백그라운드로 동작하는 다중 터미널을 만들어 백그라운드 작업을 간단히 수행할 수 있고, 중간에 끊더라도 다시 접속하면 같은 화면을 볼 수 있도록 한다.
+- 이 도구는 백그라운드로 동작하는 다중 터미널을 만들어 백그라운드 작업을 간단히 수행할 수 있고, 중간에 끊더라도 다시 접속하면 같은 화면을 볼 수 있도록 한다.
 
-이를 이용해서 시간이 오래 걸리는 도구를 설치할 때에도 screen을 만들어 설치하고 screen을 나와도 설치는 중단되지 않고 실행되게 할 수 있다.
-
-또한 카폐에서 작업을 하다가 집에 가더라도 screen으로 다시 접속하면 내가 작업하던 부분부터 확인할 수 있다. (!!!!!!)
+- 이를 이용해서 시간이 오래 걸리는 도구를 설치할 때에도 screen을 만들어 설치하고 screen을 나와도 설치는 중단되지 않고 실행되게 할 수 있다. 또한 카폐에서 작업을 하다가 집에 가더라도 screen으로 다시 접속하면 내가 작업하던 부분부터 확인할 수 있다. (!!!!!!)
 
 ~~~~~~~~~~~~~~~~~
 1.2. Screen 설치
@@ -312,7 +302,7 @@ linux에서 물리적인 터미널을 여러 개의 가상 터미널로 다중�
 
 ``screen -S [screen 이름]`` : screen을 원하는 이름으로 생성한다.
 
-    * screen에서 빠져나가고 싶을 때 : ``ctrl+a+d``
+    * screen에서 빠져나가고 싶을 때 : ``ctrl+a,d``
     * screen에 다시 접속하고 싶을 때 : ``screen -r [screen 이름]``
 
 ``screen -list`` : screen list를 확인한다.
@@ -323,6 +313,6 @@ linux에서 물리적인 터미널을 여러 개의 가상 터미널로 다중�
 2. 공부할 때 도움되는 참고글
 ------------------------------
 
-  * `openstack document <https://docs.openstack.org/install-guide/>` : openstack 공식 문서
-  * `openstack network 구축 과정 이해 <https://printf.kr/archives/307>`
-  * `devstack으로 multi node 구성하기 <https://nhnent.dooray.com/share/posts/NksDQdLvSA-KRSuJra5jlA>`
+  * `openstack document <https://docs.openstack.org/install-guide/>`_ : openstack 공식 문서
+  * `openstack network 구축 과정 이해 <https://printf.kr/archives/307>`_
+  * `devstack으로 multi node 구성하기 <https://nhnent.dooray.com/share/posts/NksDQdLvSA-KRSuJra5jlA>`_
