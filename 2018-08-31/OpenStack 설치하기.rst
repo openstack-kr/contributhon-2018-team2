@@ -79,19 +79,19 @@ CentOS 서버에서 vm을 설치하여 그 곳에서 devstack을 설치하려고
 
 Vagrantfile에는 아래와 같은 정보를 입력한다::
 
-Vagrant.configure("2") do |config|
-config.vm.box = "ubuntu/xenial64"
-config.vm.provider "virtualbox" do |vb|
-vb.memory = "6144"
-vb.cpus = "6"
-end
-config.vm.network "forwarded_port", guest: 80, host: 8080
-end
+  Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/xenial64"
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "6144"
+      vb.cpus = "6"
+    end
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+  end
 
 +) ``config.vm.network "forwarded_port", guest: 80, host: 8080`` 의 의미를 찾아보았다. 
-- guest의 80이란 vm의 80 포트를 의미하여 host의 8080은 말그대로 호스트의 8080 포트를 의미한다.
-- 즉 vm의 80 포트를 host의 8080 포트에 연결한다는 뜻이다.
-- openstack을 설치한 이후 ip:8080을 하면 openstack dashboard에 접속할 수 있다.
+  - guest의 80이란 vm의 80 포트를 의미하여 host의 8080은 말그대로 호스트의 8080 포트를 의미한다.
+  - 즉 vm의 80 포트를 host의 8080 포트에 연결한다는 뜻이다.
+  - openstack을 설치한 이후 ip:8080을 하면 openstack dashboard에 접속할 수 있다.
 
 ``$ vagrant up`` : 설정한 정보대로 vm이 생성된다.
 
@@ -111,7 +111,7 @@ end
 
 마찬가지로 devstack이 무엇인지 간단하게 찾아보았다.
 
-* `devstack 이란? <https://www.slideshare.net/ianychoi/openstack-devstack-install-1-allinone>`_
+- `devstack 이란? <https://www.slideshare.net/ianychoi/openstack-devstack-install-1-allinone>`_
 - OpenStack 개발 환경을 구성하기 위한 스크립트
 - OpenStack의 구성 확인 및 테스트 용도로 사용
 
@@ -121,7 +121,7 @@ end
 
 이제 아래의 명령어들을 차례대로 입력하면서 설치를 진행하면 된다.
 
-* `devstack install 방법 <https://docs.openstack.org/devstack/latest/>`_ 에서 차례대로 진행하면 되는데, 공부한 기록을 남기기 위하여 따로 아래에 작성했다. 
+  `devstack install 방법 <https://docs.openstack.org/devstack/latest/>`_ 에서 차례대로 진행하면 되는데, 공부한 기록을 남기기 위하여 따로 아래에 작성했다. 
 
 ``$ sudo useradd -s /bin/bash -d /opt/stack -m stack`` : 개별의 stack user를 생성한다.
 
@@ -179,22 +179,16 @@ end
 
 ``$ vim local.conf`` : local.conf 파일을 생성한다.
 
-여기서 localrc, local.conf의 차이를 말씀해 주셨는데, localrc는 옛날 버전이며 local.conf는 최신 버전이라고 한다.
-local.conf만 생성했다고 해서 localrc가 생성되지 않는 것이 아니라 local.conf안에 localrc가 포함되어있다.
+  여기서 localrc, local.conf의 차이를 말씀해 주셨는데, localrc는 옛날 버전이며 local.conf는 최신 버전이라고 한다. local.conf만 생성했다고 해서 localrc가 생성되지 않는 것이 아니라 local.conf안에 localrc가 포함되어있다.
 
-local.config 내용 :
+local.config 내용 ::
 
-[[local|localrc]]
-
-HOST_IP=10.0.2.15
-
-ADMIN_PASSWORD=secret
-
-DATABASE_PASSWORD=$ADMIN_PASSWORD
-
-RABBIT_PASSWORD=$ADMIN_PASSWORD
-
-SERVICE_PASSWORD=$ADMIN_PASSWORD
+  [[local|localrc]]
+  HOST_IP=10.0.2.15
+  ADMIN_PASSWORD=secret
+  DATABASE_PASSWORD=$ADMIN_PASSWORD
+  RABBIT_PASSWORD=$ADMIN_PASSWORD
+  SERVICE_PASSWORD=$ADMIN_PASSWORD
 
 ``local.conf`` 를 위와 같이 입력하고, 저장을 해준다.
 
@@ -274,7 +268,7 @@ commit message를 잘 작성하기 위해서 연습하라고 하셨다.
 
 ``eth0`` 에서 ``inet addr`` 를 보면 ip가 있는데 그 ip인 (여기서는 ``110.10.129.22`` )로 openstack dashboard으로 접속할 수 있다.
 
-http://110.10.129.22:8080/ 으로 접속이 되면 성공이다!!!!
+http://자신의 ip:8080 으로 접속이 되면 성공이다!!!!
 
 그럼 끝!!! 수고하셨습니다!!
 
@@ -317,6 +311,6 @@ devstack을 조금 더 편리하게 사용하기 위해서, 몇가지 팁과 공
 2. 공부할 때 도움되는 참고글
 ------------------------------
 
-* `openstack document <https://docs.openstack.org/install-guide/>`_ : openstack 공식 문서
+* `openstack 공식 문서 <https://docs.openstack.org/install-guide/>`_ 
 * `openstack network 구축 과정 이해 <https://printf.kr/archives/307>`_
 * `devstack으로 multi node 구성하기 <https://nhnent.dooray.com/share/posts/NksDQdLvSA-KRSuJra5jlA>`_
