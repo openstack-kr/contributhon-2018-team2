@@ -10,13 +10,13 @@ Git 사용하기
 * github에서 ssh 사용하기
 ----------------------------
 
-1. key 생성
+1. key 생성하기
 
 ``ssh-keygen -t rsa -b 4096``
-: 보통 1024, 2048, 4096 존재하나 4096이상을 권장
+: 보통 1024, 2048, 4096 존재하나 4096이상을 권장한다.
 
 ``$ ls -al ~/.ssh/id_rsa*``
-: id_rsa와 id_rsa.pub
+: id_rsa와 id_rsa.pub가 결과값으로 나온다.
 
 > id_rsa : secret key / id_rsa.pub : public key
 
@@ -24,16 +24,21 @@ Git 사용하기
 
 3. Clone시 ssh사용하기
 
-``Clone or download`` > clone with SSH 주소 복사
+``Clone or download`` > ``clone with SSH 주소`` 복사
 
-4. ``git clone 주소``
+4. git clone 하기
 
-**바로 원래의 github에 clone하지 말고, fork하는 것을 잊지마세요**
+``$ git clone ssh주소``
 
-clone을 하면 기본으로 master branch를 clone하고, remote 이름이 origin이 됩니다.
+**바로 원래의 github에 clone하지 말고, fork하는 것을 잊지마세요!**
+
+clone을 하면 기본으로 master branch를 clone하고, remote 이름이 origin이 된다.
 
 remote이름을 다른 걸로 설정하더라도 상관없지만,
-관례적으로 ``opensource에서 실제 기여하는 부분`` 은 ``upstream``, ``자신이 수정하는 부분`` 은 ``origin`` 이라고 이름을 붙입니다.
+
+관례적으로 ``opensource에서 실제 기여하는 부분`` 은 ``upstream``,
+
+``자신이 수정하는 부분`` 은 ``origin`` 이라고 이름을 붙인다.
 
 -----------------------
 * github pull request
@@ -41,72 +46,73 @@ remote이름을 다른 걸로 설정하더라도 상관없지만,
 
 1. 최신 버전 가져오기
 
-``$ git pull upstream master`` : 현재 기여되고 있는 github의 master branch 내용을 가져옴
+``$ git pull upstream master`` : 현재 기여되고 있는 github의 master branch 내용을 가져온다.
 
-``$ git push origin master`` : 자신의 github에 가져온 내용을 push
+``$ git push origin master`` : 자신의 github에 local의 내용을 push한다.
 
 2. branch 생성하기
 
-``$ git checkout -b branch_name`` : 새로운 branch에는 기존의 내용을 copy한 내용이 담김
+``$ git checkout -b branch_name`` : branch_name으로 branch를 생성하고, 새로운 branch에는 기존의 내용을 copy한 내용이 담겨있다.
 
 3. 변경된 파일 push하기
 
-``$ git push origin branch_name:github에 올릴 branch_name``
+``$ git push origin local-branch_name:github에-올릴-branch_name``
 
-``$ git push origin 20180906:0906``
+local에서 만든 branch의 내용을 github에는 새로운 branch_name으로 올리겠다는 의미이다.
 
-내가 local에서 만든 branch의 내용을 github에는 새로운 branch_name으로 올리겠다.
+예) ``$ git push origin 20180906:0906``
 
-즉 20180906이라는 branch는 local에 있지만 github에 올릴 때에는 0906이라는 branch 이름으로 올리겠다는 의미.
+즉 20180906이라는 branch는 local에 있지만 github에 올릴 때에는 0906이라는 branch 이름으로 올리겠다는 의미이다.
 
 4. pull request하기
 
-branch마다 별도의 pull request를 진행할 수 있다.
++) branch마다 별도의 pull request를 진행할 수 있다.
 
-5. 수정사항이 들어왔을 때 해당 요청을 반영하여 수정한 후 마지막 커밋을 수정하기.
+5. 수정 요청이 들어왔을 때 해당 요청을 반영하여 수정한 후 마지막 커밋을 수정하기.
 
-만약 새로운 커밋을 올리면 올리는 사람 입장에서는 반영이 되었다는 느낌보다는 새로운 반영이라는 느낌이 들 수 있음.
+만약 새로운 커밋을 올리면 올리는 사람 입장에서는 수정 사항이 반영되었다는 느낌보다는 새로운 반영이라는 느낌이 들 수 있다.
 
-``$ git commit -a --amend``: 내가 마지막으로 올린 커밋을 수정하겠다.
+``$ git commit -a --amend``: 마지막으로 올린 커밋을 수정한다.
 
 만약 이렇게 커밋을 수정해서 올리면 커밋의 아이디가 같기 때문에 충돌이 날 수 있다.
 
-``$ git push origin branch_name:branch_name --force`` : 따라서 해당 커밋을 강제로 올려준다.
+따라서 강제로 push를 하는 경우가 있다.
+
+``$ git push origin branch_name:branch_name --force``
 
 +) git branch 삭제하기
 
-``git push origin :0906`` : 0906이라는 브랜치에 빈값을 넣겠다 즉 0906이라는 branch를 없애겠다.
+``git push origin :0906`` : 0906이라는 브랜치에 빈 값을 넣겠다 즉 0906이라는 branch를 없애 겠다는 의미이다.
 
-그리고 해당 branch로 pull request한 것은 closed가 된다.
+그리고 해당 branch로 pull request한 issue는 closed가 된다.
 
 =======================================
-openstack sendbox에서 contribution 해보기
+openstack sandbox에서 contribution 해보기
 =======================================
 
 1. openstack-dev sandbox clone 하기
 
 처음 commit하는 commiter를 위한 ``openstack-dev/sandbox`` 가 존재한다.
 
-``$ git clone git://git.openstack.org/openstack-dev/sandbox``
+``$ git clone git://git.openstack.org/openstack-dev/sandbox``로 해당 github의 내용을 가져온다.
 
 2. sync 작업하기
 
-> gerrit을 설치해줘야한다.
+> 이 전에 gerrit을 설치해줘야한다.
 
 ``$ git review -s``
 
 gerrit에 있는 user와 sync를 맞춰줘야한다. 그래야 commit을 하면 자신의 히스토리에 남게 된다.
 
-+) commit 한 개당 하나의 리뷰로 간주하는데, git 에서는 --force를 썼다면, gerrit은 fetch단위로
-fetch set을 해주면 하나의 리뷰로 묶이게 된다.
++) commit 한 개당 하나의 리뷰로 간주하는데, git 에서는 --force를 썼다면,
+
+gerrit은 fetch단위로 fetch set을 해주면 하나의 리뷰로 묶이게 된다.
 
 3. review 올리기
 
 모든 작업이 같으나, git commit message를 작성할 때,
 
-맨 하단에 ``Closes-Bug: #버그번호``
-
-를 사용하고 commit을 생성하면
+맨 하단에 ``Closes-Bug: #버그번호`` 를 작성하고 commit을 생성하면
 
 ``$ git log`` : git 내역에서 아까 맞췄던 sync 때문에, Change-Id의 값이 자동으로 설정된다.
 
@@ -118,17 +124,17 @@ fetch set을 해주면 하나의 리뷰로 묶이게 된다.
 
 ``$ git commit -a --amend``
 
-``$ git review`` : --force를 하지 않아도 올라감
+``$ git review`` : 기존의 commit과 다르게 --force를 하지 않아도 올라간다.
 
 +) 만약 내가 새로 clone을 해서 마지막으로 commit한 파일이 없다면?
 
-``$ git review -d 버그번호`` : 이 fetch로 가져와서 내 local에 branch를 생성한다.
+``$ git review -d 버그번호`` : fetch로 가져와서 내 local에 branch를 생성한다.
 
 +) openstack 관련 url
 
 https://github.com/openstack/ : openstack을 mirroring한 곳
 
-http://git.openstack.org/cgit : openstack 기존 소스
+http://git.openstack.org/cgit : openstack 원본
 
 https://review.openstack.org/ : contribution한 내용이 올라가는 곳
 
@@ -148,13 +154,15 @@ horizon (=Dashboard)
 
 1. 네트워크
 
-네트워크에 들어가면 기본적으로 2개의 네트워크가 생성되어있음.
+네트워크에 들어가면 기본적으로 2개의 네트워크가 생성되어있다.
 
   - fixed ip : vm에게 할당이 되는 ip (외부 접근 불가)
 
   - floating ip : vm에게 공인 ip처럼 할당
 
-즉 vm은 fixed ip를 가지고 이 ip와 mapping되는 floating ip를 갖는다.
+즉 vm은 ``fixed ip`` 를 가지고 이 ip와 mapping되는``floating ip`` 를 갖는다.
+
++) Network
 
   - Provider Network : floating ip를 서비스 해주는 Network
 
@@ -162,13 +170,11 @@ horizon (=Dashboard)
 
 기존에 생성되어있는 네트워크를 보면,
 
-public은 기본적으로 ``172.24.4.0/24`` 즉 C class 대역으로 생성 & 외부 접속 가능
+public은 기본적으로 ``172.24.4.0/24`` 즉 C class 대역으로 생성되어있고, 외부 접속이 가능하다.
 
-실제로 ``ip addr``을 해서 ``br-ex``(linux bridge external) 부분의 ip가 gateway로 잡혀있고 이 ip로 ping을 날리면 ping도 동작한다.
+실제로 ``ip addr``을 해서 ``br-ex``(linux bridge external) 부분의 ip가 gateway(``172.24.4.1/24``)로 잡혀있고 이 ip로 ping을 날리면 ping도 동작한다.
 
 즉 host안에서 가상으로 privider network를 만들어 놓은 상태이다. 물론 외부에서 접속할 수 없다.
-
-만약 vm에 외부에서 접속할 수 있는 floating ip를 할당한다면 ``172.24``로 시작하는 ip를 할당한다.
 
 2. router
 
@@ -180,36 +186,30 @@ public은 기본적으로 ``172.24.4.0/24`` 즉 C class 대역으로 생성 & �
 Vm에 network 설정하기
 -------------------------
 
-vm이 붙을 수 있는 가상 네트워크를 만듬
+* 할일 요약
 
-vm과 가상네트워크 연결
-
-외부에서 접속하기 위하여 public ip를 붙여야하는데
-
-그 ip를 붙이기위해 router를 사용
-
-router에 public ip 연결
+  1.  vm이 붙을 수 있는 가상 네트워크를 만듬
+  2. vm과 가상네트워크 연결
+  3. router에 public ip 연결
+  :  외부에서 접속하기 위하여 public ip를 붙여야하는데 그 ip를 붙이기위해 router를 사용
 
 1. network 생성
 
-: vm이 붙을 수 있는 가상 네트워크를 만듬
-
-  - 프로젝트의 network에서 network 생성 클릭
-  - network
-    - 이름 생성
-  - subnet
-    - 네트워크 주소 : 사설 대역
-    - 게이트웨이 주소 : 네트워크 주소에 있는 대역 중 하나
-  - 서브넷 세부정보
-    - DHCP 사용 선택
-    - pool 할당 (subnet에서 DHCP가 할당 할 수 있는 pool을 설정해줌)
-      - 예) 172.31.0.20, 172.31.0.200 : 20부터 200까지가 할당 가능
-    - 네임서버
-      - 1.1.1.1
+  1. 프로젝트의 network에서 network 생성 클릭
+  2.  네트워크 설정
+    - network
+        - 이름 생성
+    - subnet
+        - 네트워크 주소 : 사설 대역 (``172.31.0.0/24``)
+        - 게이트웨이 주소 : 네트워크 주소에 있는 대역 중 하나 (``172.31.0.1``)
+    - 서브넷 세부정보
+        - DHCP 사용 선택
+        - pool 할당 (subnet에서 DHCP가 할당 할 수 있는 pool을 설정해줌)
+          - 예) 172.31.0.20, 172.31.0.200 : 20부터 200까지가 할당 가능
+        - 네임서버
+          - 1.1.1.1
 
 2. instance 생성
-
-: vm 생성
 
   - 이미지
     - cirros
@@ -224,16 +224,16 @@ router에 public ip 연결
   - 외부 네트워크
     - public
 
-router 모양이 생기면
+router 모양이 생기면 router 클릭
 
   - 인터페이스 추가
     - 원하는 인터페이스 선택
 
-위의 모든 것을 실행하면 연결이 된다.
+위의 모든 것을 실행하면 vm은 가상 네트워크와 연결되고 가상네트워크와 public 네트워크는 라우터로 연결된다.
 
 3. vm 하드 리부팅
 
-이 과정에서 key pair가 뜨고 network info가 뜨고 cirros 로고가 뜨면 정상
+vm 하드 리부팅을 시켜줘야 하는데, 이 과정에서 key pair가 뜨고 network info가 뜨고 cirros 로고가 뜨면 정상이다.
 
 +) router까지 연결을 했는데 왜 인스턴스에 연결된 ip로 외부에서 접근이 되지 않을까?
 
@@ -243,9 +243,9 @@ router 모양이 생기면
 
 논리적인 구조상으로는 router가 있으니까 해당 ip로 ping을 때리면 접속이 되지 않을까 하지만,
 
-사실은 vm은 network namespace로 감싸져 있음 즉 아예 격리된 환경
+사실은 vm은 network namespace로 감싸져 있음 즉 아예 격리된 환경이다.
 
-그래서 외부 접속이 되려면 이 network namespace안으로 들어가야함
+그래서 외부 접속이 되려면 이 network namespace안으로 들어가야한다.
 
 4. network namespace 안으로 들어가기
 
@@ -255,31 +255,29 @@ qdhcp 2개와 qrouter가 2개가 있다.
 
 하나는 기본적으로 있는 것, 하나는 우리가 생성한 것이다.
 
-우리가 만든 것을 알려면 ``네트워크 토폴로지``에서 router 모양을 클릭하면 해당 router의 이름이 나온다.
+우리가 만든 것이 무엇인지 알려면 ``네트워크 토폴로지`` 에서 생성한 router를 클릭하면 해당 router의 이름이 나온다.
 
-``$ ip netns exec 생성된-router /bin/bash``
+``$ ip netns exec 생성된-router-이름 /bin/bash`` : 우리가 생성한 router 안의 network namespace에서 /bin/bash를 실행시킨다.
 
-우리가 생성한 router 안의 network namespace에서 /bin/bash를 실행시켜라
+즉 docker로 생각한다면 container안에 들어가서 bash를 실행하겠다는 의미이다.
 
-즉 docker로 생각한다면 container안에 들어가서 bash를 실행하겠다는 의미
-
-위의 명령어를 실행하면 namespace안으로 들어오게됨
+위의 명령어를 실행하면 namespace안으로 들어오게된다.
 
 +) 확인해보려면?
 
-  1. 현재 namespace에서 ``$ ip netns``를 실행했을 때 보여지는 결과값
+현재 namespace에서 ``$ ip netns``를 실행했을 때 보여지는 결과값
 
-  ``exit``을 하고 host환경에서 ``$ ip addr``를 실행했을 때 보여지는 결과값
+``exit``을 하고 host환경에서 ``$ ip addr``를 실행했을 때 보여지는 결과값
 
-  이렇게 보면 둘의 결과값이 다르다.
+이렇게 보면 둘의 결과값이 다르다.
 
-  2. namespace안에서 ``$ ip addr``을 실행했을 때, gateway의 ip(``172.31.0.1``)가 잡혀있다.
+namespace안에서 ``$ ip addr``을 실행했을 때, gateway의 ip(``172.31.0.1``)가 잡혀있다.
 
-  해당 ip를 ping을 실행하면 ping이 나가게 된다.
+해당 ip로 ping을 실행하면 ping이 나가게 된다.
 
-  하지만 vm을 생성할 때 할당한 서브넷 pool (172.31.0.20, 172.31.0.200) 중 하나인 172.31.0.21을 ping을 치면 나가지 않는다.
+하지만 vm을 생성할 때 할당한 서브넷 pool (172.31.0.20, 172.31.0.200) 중 하나인 ``172.31.0.21`` 으로 실행하면
 
-  이유는 ``보안그룹이 막혀있기 때문``에 나가지 않는다.
+``보안그룹이 막혀있기 때문`` 에 vm으로 접속되지않고, ping도 실행되지 않는다.
 
 5. 보안그룹 설정
 
@@ -289,7 +287,7 @@ qdhcp 2개와 qrouter가 2개가 있다.
     - 모든 ICMP
       - 해당 규칙을 추가하면 해당 172.31.0.21 로 ping을 날렸을 때 ping이 가는 것을 볼 수 있다.
       - 하지만 ``$ ssh cirros@172.31.0.21``는 되지 않는다. 왜냐하면 ICMP 규칙만 추가했기 때문이다.
-    - 모든 TCP
+    - 모든 TCP.
 
 위의 두개의 규칙을 추가하면 접속이 가능하다!
 
@@ -301,7 +299,7 @@ qdhcp 2개와 qrouter가 2개가 있다.
 
 하지만 사용자에게 vm을 생성해서 줬는데 자신이 하이퍼바이저에 들어와서 router ip를 찾아서 접속해라 라고 말할 수 없다.
 
-따라서 처음에 들어오기 위해 floating ip를 붙여줘야한다.
+따라서 floating ip를 붙여줘야한다.
 
 7. floating ip 붙여주기
 
@@ -315,41 +313,77 @@ qdhcp 2개와 qrouter가 2개가 있다.
 
 +) 이후에 cirros가 아닌 ubuntu, centos 등 다양한 이미지를 올리고 싶을 때는 하드의 용량이 부족할 수 있다.
 
-그때는 vm을 삭제하고, 용량을 변경할 수 있다.
-
-https://github.com/sprotheroe/vagrant-disksize
+그때는 vm을 삭제하고, 용량을 변경할 수 있다. (`Vagrant Size 변경하기 <https://github.com/sprotheroe/vagrant-disksize>`_)
 
 +) 알아야할 지식
 
 - 리눅스 브릿지
-: eth란 물리적인 장비에 네트워크 인터페이스 카드에 대해서 드라이버가 잡혀서 나온 것
-리죽스가 이걸 사용하는 방법이 여러가지
-그 중에 하나가 eth0:1 eth0:2 처럼 하나의 eth0에 대해서 여러 가상 인스턴스를 받을 수 있음
 
-물리적인 또는 가상의 네트워크 장비에 대해서 어떻게 구성을 할 것인가에 관련
-가상화된 브릿지를 만들어서 리눅스에서 나감
+: 호스트의 가상 네트워크 인터페이스를 다리 삼아 외부와 연결한다.
+
+게스트와 통신하는 브리지 네트워크 인터페이스는 virbr0이고
+
+vnet1, vnet2는 게스트가 사용하는 가상네트워크 인터페이스로 게스트 내부의 네트워크 인터페이스 eth0에 대응한다.
+
++) eth란 물리적인 장비에 네트워크 인터페이스 카드에 대해서 드라이버가 잡힌 곳이다. 리눅스가 이걸 사용하는 방법이 여러가지인데,
+그 중에 하나가 eth0:1 eth0:2 처럼 하나의 eth0에 대해서 여러 가상 인스턴스를 받을 수 있다.
 
 - Iptables
-: 리눅스에 있는 방화벽, 포트포워딩 등을 설정 가능
+
+: 리눅스에 있는 방화벽, 포트포워딩 등을 설정 가능한 곳이다.
 
 - Routing
-: 어떤 ip대역에서 어떤 packet 이 왔을 때 어떤 장비로
+
+: 어떤 ip대역에서 어떤 packet 이 왔을 때 어떤 장비로 갈지 결정하는 것이다.
 
 - Namespace
- : 하나의 컴퓨터에 대해서 여러개의 가상 네트워크를 네임스페이스로 구분
-네임스페이스내에서는 peer라는 게 있어서 네임스페이스끼리 연결 가능
 
+: vm에서는 각 머신별로 독립적인 공간을 제공하고 서로가 충돌하지 않도록 하는 기능을 가지고 있는데,
 
-subnet이란?
+리눅스에서는 이와 동일한 역할을 하는 namespace 기능을 kernel에 내장하고 있다.
 
-사설 대역?
+네임스페이스내에서는 peer라는 게 있어서 네임스페이스끼리 연결 가능하다.
 
-DHCP란?
++) 추가
 
-네임서버란?
+- IP 범위
+  - 사설IP 범위
+    - A class 1개 : 10.0.0.0 - 10.255.255.255 (8 bit prefix)
+    - B class 16개 : 172.16.0.0 - 172.31.255.255 (12 bit prefix)
+    - C class 256개 : 192.168.0.0 - 192.168.255.255 (16 bit prefix)
 
-ICMP란?
+  - 공인IP 범위
+    - Class A : 1 ~ 126 (각각 16M개의 호스트)
+    - Class B : 128 ~ 191 (각각 65,536개의 호스트)
+    - Class C : 192 ~ 223 (각각 356개의 호스트)
+    - Class D : 224 ~ 239 (멀티캐스트 모드)
+    - Class E : 240 ~ 255 (나중의 위해 예약되었음)
+    - 127.0.0.1 은로컬 커퓨터가 자기자신을 표현하는 루프백 주소이다.
 
-하이퍼바이저?
+- 'DHCP <http://jwprogramming.tistory.com/35>'_
 
-gateway (172.31.0.1) ?
+  - 네트워크 안에 컴퓨터에 자동으로 네임 서버 주소, IP주소, 게이트웨이 주소를 할당해주는 것을 의미하고,
+  해당 클라이언트에게 일정 기간 임대를 하는 동적 주소 할당 프로토콜이다.
+
+  - ``DHCP서버``  는 ip 주소를 가지고 있는 서버에서 실행되는 프로그램으로
+  일정한 범위의 ip주소를 다른 클라이언트에게 할당하여 자동으로 설정하게한다.
+
+  - ``DHCP 클라이언트`` 는 시스템이 시작되면 DHCP 서버에 자신의 시스템 ip 주소를 요청하여 주소를 부여받으면 TCP/IP가 초기화되고,
+  다른 host와 TCP/IP를 이용해 통신할 수 있다.
+
+- 네임 서버
+  - 도메인에 할당하는 ip를 알려주는 서비스
+  - name server가 죽으면 ip로는 접근이 가능하지만 domain으로는 접근 불가능
+
+- ICMP
+  - ICMP는 TCP/IP에서 IP 패킷을 처리할 때 **발생되는 문제를 알려주는 프로토콜** 이다.
+  - IP에는 오로지 패킷을 *목적지에 도달* 시키기 위한 내용들로만 구성되어 있다. 만일 정상적으로 패킷이 목적지에 도달하지 않았을 때,
+  이에 관련된 에러 처리를 진행해야하는데 IP에는 그러한 에러 처리법이 있지 않다. 따라서 ip의 이러한 단점을 위해 ICMP가 존재한다.
+  - ICMP는 에러상황이 발생할 경우 IP헤더에 기록되어 있는 출발지 호스트로 이러한 **에러에 대한 상황을 보내주는 역할을 수행** 하게 된다.
+
+- 하이퍼바이저
+  - 호스트 컴퓨터 1대에서 다수의 운영체제를 동시에 실행할 수 있도록 해주는 가상 플랫폼 기술이고 가상 머신 모니터라고도 부른다.
+  - 높은 수준의 관리 모니터링 도구에 대한 인터페이스 뿐만 아니라 OS 간 방해를 막기 위해 vm에 대한 자원 및 메모리 할당 등을 처리한다.
+
+- gateway
+  -
