@@ -94,7 +94,7 @@ openstack sandbox에서 contribution 해보기
 
 처음 commit하는 commiter를 위한 ``openstack-dev/sandbox`` 가 존재한다.
 
-``$ git clone git://git.openstack.org/openstack-dev/sandbox``로 해당 github의 내용을 가져온다.
+``$ git clone git://git.openstack.org/openstack-dev/sandbox`` 로 해당 github의 내용을 가져온다.
 
 2. sync 작업하기
 
@@ -172,7 +172,7 @@ horizon (=Dashboard)
 
 public은 기본적으로 ``172.24.4.0/24`` 즉 C class 대역으로 생성되어있고, 외부 접속이 가능하다.
 
-실제로 ``ip addr``을 해서 ``br-ex``(linux bridge external) 부분의 ip가 gateway(``172.24.4.1/24``)로 잡혀있고 이 ip로 ping을 날리면 ping도 동작한다.
+실제로 ``ip addr`` 을 해서 ``br-ex`` (linux bridge external) 부분의 ip가 gateway( ``172.24.4.1/24`` )로 잡혀있고 이 ip로 ping을 날리면 ping도 동작한다.
 
 즉 host안에서 가상으로 privider network를 만들어 놓은 상태이다. 물론 외부에서 접속할 수 없다.
 
@@ -200,8 +200,8 @@ Vm에 network 설정하기
     - network
         - 이름 생성
     - subnet
-        - 네트워크 주소 : 사설 대역 (``172.31.0.0/24``)
-        - 게이트웨이 주소 : 네트워크 주소에 있는 대역 중 하나 (``172.31.0.1``)
+        - 네트워크 주소 : 사설 대역 ( ``172.31.0.0/24`` )
+        - 게이트웨이 주소 : 네트워크 주소에 있는 대역 중 하나 ( ``172.31.0.1`` )
     - 서브넷 세부정보
         - DHCP 사용 선택
         - pool 할당 (subnet에서 DHCP가 할당 할 수 있는 pool을 설정해줌)
@@ -265,13 +265,13 @@ qdhcp 2개와 qrouter가 2개가 있다.
 
 +) 확인해보려면?
 
-현재 namespace에서 ``$ ip netns``를 실행했을 때 보여지는 결과값
+현재 namespace에서 ``$ ip netns`` 를 실행했을 때 보여지는 결과값
 
-``exit``을 하고 host환경에서 ``$ ip addr``를 실행했을 때 보여지는 결과값
+``exit`` 을 하고 host환경에서 ``$ ip addr`` 를 실행했을 때 보여지는 결과값
 
 이렇게 보면 둘의 결과값이 다르다.
 
-namespace안에서 ``$ ip addr``을 실행했을 때, gateway의 ip(``172.31.0.1``)가 잡혀있다.
+namespace안에서 ``$ ip addr`` 을 실행했을 때, gateway의 ip( ``172.31.0.1`` )가 잡혀있다.
 
 해당 ip로 ping을 실행하면 ping이 나가게 된다.
 
@@ -286,7 +286,7 @@ namespace안에서 ``$ ip addr``을 실행했을 때, gateway의 ip(``172.31.0.1
   - 규칙추가
     - 모든 ICMP
       - 해당 규칙을 추가하면 해당 172.31.0.21 로 ping을 날렸을 때 ping이 가는 것을 볼 수 있다.
-      - 하지만 ``$ ssh cirros@172.31.0.21``는 되지 않는다. 왜냐하면 ICMP 규칙만 추가했기 때문이다.
+      - 하지만 ``$ ssh cirros@172.31.0.21`` 는 되지 않는다. 왜냐하면 ICMP 규칙만 추가했기 때문이다.
     - 모든 TCP.
 
 위의 두개의 규칙을 추가하면 접속이 가능하다!
@@ -295,7 +295,7 @@ namespace안에서 ``$ ip addr``을 실행했을 때, gateway의 ip(``172.31.0.1
 
 ``$ ssh -i key.pem cirros@172.31.0.21`` 를 하면 접속이 가능하다.
 
-``$ ifconfig``를 한 이후 ``172.31.0.21``가 보이면 성공이다.
+``$ ifconfig`` 를 한 이후 ``172.31.0.21`` 가 보이면 성공이다.
 
 하지만 사용자에게 vm을 생성해서 줬는데 자신이 하이퍼바이저에 들어와서 router ip를 찾아서 접속해라 라고 말할 수 없다.
 
@@ -307,7 +307,7 @@ namespace안에서 ``$ ip addr``을 실행했을 때, gateway의 ip(``172.31.0.1
 
 그럼 ip는 예를 들어 ``172.24.4.11`` 로 floating ip가 할당되고,
 
-해당 vm에 외부접속을 할 수 있는 ``172.31.0.21``이 해당 floating ip와 연결된다.
+해당 vm에 외부접속을 할 수 있는 ``172.31.0.21`` 이 해당 floating ip와 연결된다.
 
 이후에는 ``$ ssh -i key.pem cirros@172.24.4.11`` 로 접속이 가능하다.
 
@@ -386,4 +386,4 @@ vnet1, vnet2는 게스트가 사용하는 가상네트워크 인터페이스로 
   - 높은 수준의 관리 모니터링 도구에 대한 인터페이스 뿐만 아니라 OS 간 방해를 막기 위해 vm에 대한 자원 및 메모리 할당 등을 처리한다.
 
 - gateway
-  -
+  - 현재 사용자가 위치한 네트워크에서 다른 네트워크로 이동하기 위해 반드시 거쳐야하는 거점
