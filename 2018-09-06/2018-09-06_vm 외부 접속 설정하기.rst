@@ -94,7 +94,7 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-**DHCP 설정** & **서브넷 변경**
+- **DHCP 설정** & **서브넷 변경**
       
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/7.png
     :width: 100px
@@ -166,7 +166,7 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-**생성한 라우터 추가**
+- **생성한 라우터 추가**
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/16.png
     :width: 100px
@@ -236,9 +236,9 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-**모든 ICMP** : ping이 된다.
+- **모든 ICMP** : ping이 된다.
 
-**모든 TCP** : ssh 연결이 가능하다.
+- **모든 TCP** : ssh 연결이 가능하다.
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/23.png
     :width: 100px
