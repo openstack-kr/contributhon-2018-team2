@@ -160,7 +160,7 @@ horizon (=Dashboard)
 
   - floating ip : vm에게 공인 ip처럼 할당
 
-즉 vm은 ``fixed ip`` 를 가지고 이 ip와 mapping되는``floating ip`` 를 갖는다.
+즉 vm은 ``fixed ip`` 를 가지고 이 ip와 mapping되는 ``floating ip`` 를 갖는다.
 
 +) Network
 
