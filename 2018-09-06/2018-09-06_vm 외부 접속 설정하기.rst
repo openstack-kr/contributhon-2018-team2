@@ -59,12 +59,16 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
+-------------------------
+
 - 네트워크 이름 생성
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/2.png
     :width: 100px
     :align: center
     :height: 200px
+
+-------------------------
 
 - 서브넷 생성
 
@@ -73,12 +77,16 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
+-------------------------
+
 - 서브넷 세부정보
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/4.png
     :width: 100px
     :align: center
     :height: 200px
+
+-------------------------
 
 - 생성 완료
 
@@ -87,12 +95,16 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
+-------------------------
+
 - 네트워크 편집
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/6.png
     :width: 100px
     :align: center
     :height: 200px
+
+-------------------------
 
 - **DHCP 설정** & **서브넷 변경**
       
@@ -113,12 +125,16 @@ Vm에 network 설정하기
    :align: center
    :height: 200px
 
+-------------------------
+
 - cirros 이미지 올리기
 
 ..  image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/9.png
    :width: 100px
    :align: center
    :height: 200px
+
+-------------------------
 
 - Flavor (알아서 설정하면 됨 - AWS 처럼!)
 
@@ -127,6 +143,8 @@ Vm에 network 설정하기
    :align: center
    :height: 200px
 
+-------------------------
+
 - 위에서 생성한 network로 올리기
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/11.png
@@ -134,12 +152,16 @@ Vm에 network 설정하기
    :align: center
    :height: 200px
 
+-------------------------
+
 - 키페어 생성
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/12.png
    :width: 100px
    :align: center
    :height: 200px
+
+-------------------------
 
 - 키 복사
 
@@ -159,12 +181,16 @@ Vm에 network 설정하기
    :align: center
    :height: 200px
 
+-------------------------
+
 - 라우터 인스턴스 추가
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/15.png
     :width: 100px
     :align: center
     :height: 200px
+
+-------------------------
 
 - **생성한 라우터 추가**
 
@@ -256,12 +282,16 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
+-------------------------
+
 - 유동 ip가 없기 때문에 ``+`` 를 눌러 ip 할당받아야함
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/25.png
     :width: 100px
     :align: center
     :height: 200px
+
+-------------------------
 
 -  pool: public > ip 할당
 
@@ -270,12 +300,16 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
+-------------------------
+
 - 유동 ip 할당
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/27.png
     :width: 100px
     :align: center
     :height: 200px
+
+-------------------------
 
 - 할당 완료!
 
