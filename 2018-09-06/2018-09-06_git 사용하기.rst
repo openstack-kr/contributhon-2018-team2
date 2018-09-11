@@ -1,0 +1,144 @@
+++++++++++++++++++++++++++++++
+2018-09-06 : VM 설정하기
+++++++++++++++++++++++++++++++
+
+==============
+Git 사용하기
+==============
+
+----------------------------
+github에서 ssh 사용하기
+----------------------------
+
+1. key 생성하기
+
+``ssh-keygen -t rsa -b 4096``
+: 보통 1024, 2048, 4096 존재하나 4096이상을 권장한다.
+
+``$ ls -al ~/.ssh/id_rsa*``
+: id_rsa와 id_rsa.pub가 결과값으로 나온다.
+
+> id_rsa : secret key / id_rsa.pub : public key
+
+2. ``내 profile 클릭`` > ``Setting`` > ``SSH and GPG keys`` > ``New GPG key`` > ``id_rsa.pub 내용 붙여넣기``
+
+3. Clone시 ssh사용하기
+
+``Clone or download`` > ``clone with SSH 주소`` 복사
+
+4. git clone 하기
+
+``$ git clone ssh주소``
+
+**바로 원래의 github에 clone하지 말고, fork하는 것을 잊지마세요!**
+
+clone을 하면 기본으로 master branch를 clone하고, remote 이름이 origin이 된다.
+
+remote이름을 다른 걸로 설정하더라도 상관없지만,
+
+관례적으로 ``opensource에서 실제 기여하는 부분`` 은 ``upstream``,
+
+``자신이 수정하는 부분`` 은 ``origin`` 이라고 이름을 붙인다.
+
+-----------------------
+github pull request
+-----------------------
+
+1. 최신 버전 가져오기
+
+``$ git pull upstream master`` : 현재 기여되고 있는 github의 master branch 내용을 가져온다.
+
+``$ git push origin master`` : 자신의 github에 local의 내용을 push한다.
+
+2. branch 생성하기
+
+``$ git checkout -b branch_name`` : branch_name으로 branch를 생성하고, 새로운 branch에는 기존의 내용을 copy한 내용이 담겨있다.
+
+3. 변경된 파일 push하기
+
+``$ git push origin local-branch_name:github에-올릴-branch_name``
+
+local에서 만든 branch의 내용을 github에는 새로운 branch_name으로 올리겠다는 의미이다.
+
+예) ``$ git push origin 20180906:0906``
+
+즉 20180906이라는 branch는 local에 있지만 github에 올릴 때에는 0906이라는 branch 이름으로 올리겠다는 의미이다.
+
+4. pull request하기
+
++) branch마다 별도의 pull request를 진행할 수 있다.
+
+5. 수정 요청이 들어왔을 때 해당 요청을 반영하여 수정한 후 마지막 커밋을 수정하기.
+
+만약 새로운 커밋을 올리면 올리는 사람 입장에서는 수정 사항이 반영되었다는 느낌보다는 새로운 반영이라는 느낌이 들 수 있다.
+
+``$ git commit -a --amend``: 마지막으로 올린 커밋을 수정한다.
+
+만약 이렇게 커밋을 수정해서 올리면 커밋의 아이디가 같기 때문에 충돌이 날 수 있다.
+
+따라서 강제로 push를 하는 경우가 있다.
+
+``$ git push origin branch_name:branch_name --force``
+
++) git branch 삭제하기
+
+``git push origin :0906`` : 0906이라는 브랜치에 빈 값을 넣겠다 즉 0906이라는 branch를 없애 겠다는 의미이다.
+
+그리고 해당 branch로 pull request한 issue는 closed가 된다.
+
+========================================
+openstack sandbox에서 contribution 해보기
+========================================
+
+1. openstack-dev sandbox clone 하기
+
+처음 commit하는 commiter를 위한 ``openstack-dev/sandbox`` 가 존재한다.
+
+``$ git clone git://git.openstack.org/openstack-dev/sandbox`` 로 해당 github의 내용을 가져온다.
+
+2. sync 작업하기
+
+> 이 전에 gerrit을 설치해줘야한다.
+
+``$ git review -s``
+
+gerrit에 있는 user와 sync를 맞춰줘야한다. 그래야 commit을 하면 자신의 히스토리에 남게 된다.
+
++) commit 한 개당 하나의 리뷰로 간주하는데, git 에서는 --force를 썼다면,
+
+gerrit은 fetch단위로 fetch set을 해주면 하나의 리뷰로 묶이게 된다.
+
+3. review 올리기
+
+모든 작업이 같으나, git commit message를 작성할 때,
+
+맨 하단에 ``Closes-Bug: #버그번호`` 를 작성하고 commit을 생성하면
+
+``$ git log`` : git 내역에서 아까 맞췄던 sync 때문에, Change-Id의 값이 자동으로 설정된다.
+
+``$ git review`` : review 올리기.
+
+4. local에서 review 수정하여 올리기
+
+해당 파일을 수정해서 commit을 수정해야하는데 gerrit은 무조건 하나의 commit을 수정할 때는 amend를 사용해야한다.
+
+``$ git commit -a --amend``
+
+``$ git review`` : 기존의 commit과 다르게 --force를 하지 않아도 올라간다.
+
++) 만약 내가 새로 clone을 해서 마지막으로 commit한 파일이 없다면?
+
+``$ git review -d 버그번호`` : fetch로 가져와서 내 local에 branch를 생성한다.
+
++) openstack 관련 url
+
+https://github.com/openstack/ : openstack을 mirroring한 곳
+
+http://git.openstack.org/cgit : openstack 원본
+
+https://review.openstack.org/ : contribution한 내용이 올라가는 곳
+
+https://bugs.launchpad.net/openstack-dev-sandbox : openstack의 bug들을 볼 수 있는 곳
+
+http://translate.openstack.org/ : 번역 페이지 (번역 페이지에서 번역한 내역은 review.openstack.org에서 볼 수 있다.)
+
