@@ -184,9 +184,9 @@ Vm에 network 설정하기
 
 ``$ vagrant ssh`` : ubuntu 실행
 
-``$ sudo su - stack`` : stack 실행
+``$ sudo su - stack`` : stack 권한
 
-``$ ping instance-ip`` : 위에서 확인 ip 로 ping을 날리면 연결이 되지 않음
+``$ ping instance-ip`` : 위에서 확인된 ip 로 ping을 날리면 연결이 되지 않음
 
 ``$ ip netns`` : qdhcp 2개 qrouter 2개 > 생성한것 & 기존에 있던 것
 
