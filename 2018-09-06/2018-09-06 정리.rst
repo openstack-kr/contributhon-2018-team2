@@ -190,8 +190,7 @@ Vm에 network 설정하기
 
   1.  vm이 붙을 수 있는 가상 네트워크를 만듬
   2. vm과 가상네트워크 연결
-  3. router에 public ip 연결
-  :  외부에서 접속하기 위하여 public ip를 붙여야하는데 그 ip를 붙이기위해 router를 사용
+  3. router에 public ip 연결 :  외부에서 접속하기 위하여 public ip를 붙여야하는데 그 ip를 붙이기위해 router를 사용
 
 1. network 생성
 
