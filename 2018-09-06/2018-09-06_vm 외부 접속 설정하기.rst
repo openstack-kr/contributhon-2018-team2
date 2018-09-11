@@ -50,42 +50,42 @@ Vm에 network 설정하기
 
 1. network 생성
 
-  - 네트워크 토폴로지 확인 & 네트워크 생성 버튼 클릭
+- 네트워크 토폴로지 확인 & 네트워크 생성 버튼 클릭
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/1.png
     :width: 100px
     :align: center
     :height: 200px
 
-  - 네트워크 이름 생성
+- 네트워크 이름 생성
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/2.png
     :width: 100px
     :align: center
     :height: 200px
 
-   - 서브넷 생성
+- 서브넷 생성
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/3.png
     :width: 100px
     :align: center
     :height: 200px
 
-    - 서브넷 세부정보
+- 서브넷 세부정보
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/4.png
     :width: 100px
     :align: center
     :height: 200px
 
-    - 생성 완료
+- 생성 완료
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/5.png
     :width: 100px
     :align: center
     :height: 200px
 
-    - 네트워크 편집
+- 네트워크 편집
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/6.png
     :width: 100px
@@ -101,179 +101,179 @@ Vm에 network 설정하기
 
  2. 인스턴스 생성
 
-     - 인스턴스 시작
+  - 인스턴스 시작
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/8.png
    :width: 100px
    :align: center
    :height: 200px
 
-     - cirros 이미지 올리기
+- cirros 이미지 올리기
 
-.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/9.png
+..  image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/9.png
    :width: 100px
    :align: center
    :height: 200px
 
-     - Flavor (알아서 설정하면 됨 - AWS 처럼!)
+- Flavor (알아서 설정하면 됨 - AWS 처럼!)
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/10.png
    :width: 100px
    :align: center
    :height: 200px
 
-     - 위에서 생성한 network로 올리기
+- 위에서 생성한 network로 올리기
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/11.png
    :width: 100px
    :align: center
    :height: 200px
 
-     - 키페어 생성
+- 키페어 생성
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/12.png
    :width: 100px
    :align: center
    :height: 200px
 
-     - 키 복사
+- 키 복사
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/13.png
    :width: 100px
    :align: center
    :height: 200px
 
-   3. 라우터 생성
+3. 라우터 생성
 
-     - 라우터 이름 & 네트워크 ( **public** )
+- 라우터 이름 & 네트워크 ( **public** )
      
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/14.png
    :width: 100px
    :align: center
    :height: 200px
 
-      - 라우터 인스턴스 추가
+- 라우터 인스턴스 추가
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/15.png
     :width: 100px
     :align: center
     :height: 200px
 
-      **생성한 라우터 추가**
+**생성한 라우터 추가**
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/16.png
     :width: 100px
     :align: center
     :height: 200px
 
-      4. 인스턴스 하드 리부팅
+4. 인스턴스 하드 리부팅
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/17.png
     :width: 100px
     :align: center
     :height: 200px
 
-      +) 인스턴스에 할당된 **ip 확인**
++) 인스턴스에 할당된 **ip 확인**
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/18.png
     :width: 100px
     :align: center
     :height: 200px
 
-      5. 인스턴스 연결해보기
+5. 인스턴스 연결해보기
 
-      ``$ vagrant ssh`` : ubuntu 실행
+``$ vagrant ssh`` : ubuntu 실행
 
-      ``$ sudo su - stack`` : stack 실행
+``$ sudo su - stack`` : stack 실행
 
-      ``$ ping instance-ip`` : 위에서 확인 ip 로 ping을 날리면 연결이 되지 않음
+``$ ping instance-ip`` : 위에서 확인 ip 로 ping을 날리면 연결이 되지 않음
 
-      ``$ ip netns`` : qdhcp 2개 qrouter 2개 > 생성한것 & 기존에 있던 것
+``$ ip netns`` : qdhcp 2개 qrouter 2개 > 생성한것 & 기존에 있던 것
 
-      ``$ sudo su`` : root 계정으로 (permission denied를 막기 위해)
+``$ sudo su`` : root 계정으로 (permission denied를 막기 위해)
 
-      ``$ ip netns exec qrouter-alsdfjasilfd /bin/bash`` : 위에서 확인한 qrouter 중 내가 생성한 router로 들어가면 생성한 instance로 들어가게됨 & vm안에서 bin/bash 실행
+``$ ip netns exec qrouter-alsdfjasilfd /bin/bash`` : 위에서 확인한 qrouter 중 내가 생성한 router로 들어가면 생성한 instance로 들어가게됨 & vm안에서 bin/bash 실행
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/19.png
     :width: 100px
     :align: center
     :height: 200px
 
-      6. 인스턴스 안에서의 addr과 인스턴스 밖에서의 addr
+6. 인스턴스 안에서의 addr과 인스턴스 밖에서의 addr
 
-      ``$ ip addr`` 을 실행하면 인스턴스 안과 밖의 addr이 확연히 다르다는 것을 알 수 있다.
+``$ ip addr`` 을 실행하면 인스턴스 안과 밖의 addr이 확연히 다르다는 것을 알 수 있다.
 
-      ``172.31.0.1/24`` 가 router의  gateway이다! (instance안에서 설정된 것을 볼 수 있다.)
+``172.31.0.1/24`` 가 router의  gateway이다! (instance안에서 설정된 것을 볼 수 있다.)
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/20.png
     :width: 100px
     :align: center
     :height: 200px
 
-      7. instance안에서 vm으로 ping을 날리면 날아가지 않는다.
+7. instance안에서 vm으로 ping을 날리면 날아가지 않는다.
 
-      왜냐하면 보안그룹에서  outbound는 열려있는데 inbound가 열려있지 않기 때문이다.
+왜냐하면 보안그룹에서  outbound는 열려있는데 inbound가 열려있지 않기 때문이다.
 
-      ``보안 그룹`` > ``규칙 관리``
+``보안 그룹`` > ``규칙 관리``
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/22.png
     :width: 100px
     :align: center
     :height: 200px
 
-      **모든 ICMP** : ping이 된다.
+**모든 ICMP** : ping이 된다.
 
-      **모든 TCP** : ssh 연결이 가능하다.
+**모든 TCP** : ssh 연결이 가능하다.
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/23.png
     :width: 100px
     :align: center
     :height: 200px
 
-      8. floating ip 할당하기
+8. floating ip 할당하기
 
-      - 유동 ip 할당
+- 유동 ip 할당
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/24.png
     :width: 100px
     :align: center
     :height: 200px
 
-      - 유동 ip가 없기 때문에 ``+`` 를 눌러 ip 할당받아야함
+- 유동 ip가 없기 때문에 ``+`` 를 눌러 ip 할당받아야함
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/25.png
     :width: 100px
     :align: center
     :height: 200px
 
-      -  pool: public > ip 할당
+-  pool: public > ip 할당
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/26.png
     :width: 100px
     :align: center
     :height: 200px
 
-      - 유동 ip 할당
+- 유동 ip 할당
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/27.png
     :width: 100px
     :align: center
     :height: 200px
 
-      - 할당 완료!
+- 할당 완료!
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/28.png
     :width: 100px
     :align: center
     :height: 200px
 
-      9. 접속하기
+9. 접속하기
 
-      접속할 때는 생성한 key를 이용해서 ``vim key.pem`` 을 생성하고
+접속할 때는 생성한 key를 이용해서 ``vim key.pem`` 을 생성하고
 
-      ``$ chmod 600 key.pem`` : 600 권한을 주고 접속하면 된다.
+``$ chmod 600 key.pem`` : 600 권한을 주고 접속하면 된다.
 
-      ``$ ssh -i key.pem cirros@유동-ip`` 를 하면 접속이 가능하다.
+``$ ssh -i key.pem cirros@유동-ip`` 를 하면 접속이 가능하다.
 
 +) 이후에 cirros가 아닌 ubuntu, centos 등 다양한 이미지를 올리고 싶을 때는 하드의 용량이 부족할 수 있다.
 
