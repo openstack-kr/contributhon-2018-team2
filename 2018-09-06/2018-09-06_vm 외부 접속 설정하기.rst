@@ -50,144 +50,230 @@ Vm에 network 설정하기
 
 1. network 생성
 
-  1. 프로젝트의 network에서 network 생성 클릭
-  2.  네트워크 설정
-    
-    - network
-        
-        - 이름 생성
-    
-    - subnet
-        
-        - 네트워크 주소 : 사설 대역 ( ``172.31.0.0/24`` )
-        
-        - 게이트웨이 주소 : 네트워크 주소에 있는 대역 중 하나 ( ``172.31.0.1`` )
-    
+  - 네트워크 토폴로지 확인 & 네트워크 생성 버튼 클릭
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/1.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+  - 네트워크 이름 생성
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/2.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+   - 서브넷 생성
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/3.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
     - 서브넷 세부정보
-        
-        - DHCP 사용 선택
-        
-        - pool 할당 (subnet에서 DHCP가 할당 할 수 있는 pool을 설정해줌)
-          
-          - 예) 172.31.0.20, 172.31.0.200 : 20부터 200까지가 할당 가능
-        
-        - 네임서버
-          
-          - 1.1.1.1
 
-2. instance 생성
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/4.png
+    :width: 100px
+    :align: center
+    :height: 200px
 
-  - 이미지
-  
-    - cirros
-  
-    - 볼륨크기 : 3GB 정도
-  
-  - Flavor
-    
-    - m1.tiny
-  
-  - 네트워크
-    
-    - 이전에 생성한 네트워크
+    - 생성 완료
 
-3. router 생성
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/5.png
+    :width: 100px
+    :align: center
+    :height: 200px
 
-  - 외부 네트워크
-    
-    - public
+    - 네트워크 편집
 
-router 모양이 생기면 router 클릭
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/6.png
+    :width: 100px
+    :align: center
+    :height: 200px
 
-  - 인터페이스 추가
-    
-    - 원하는 인터페이스 선택
-
-위의 모든 것을 실행하면 vm은 가상 네트워크와 연결되고 가상네트워크와 public 네트워크는 라우터로 연결된다.
-
-3. vm 하드 리부팅
-
-vm 하드 리부팅을 시켜줘야 하는데, 이 과정에서 key pair가 뜨고 network info가 뜨고 cirros 로고가 뜨면 정상이다.
-
-+) router까지 연결을 했는데 왜 인스턴스에 연결된 ip로 외부에서 접근이 되지 않을까?
-
-> 인스턴스에가서 ip주소를 보면 인스터스에 할당된 ip가 보인다.
-
-> 해당 ip로 ping을 날리면 연결이 되지 않는다.
-
-논리적인 구조상으로는 router가 있으니까 해당 ip로 ping을 때리면 접속이 되지 않을까 하지만,
-
-사실은 vm은 network namespace로 감싸져 있음 즉 아예 격리된 환경이다.
-
-그래서 외부 접속이 되려면 이 network namespace안으로 들어가야한다.
-
-4. network namespace 안으로 들어가기
-
-``$ ip netns``
-
-qdhcp 2개와 qrouter가 2개가 있다.
-
-하나는 기본적으로 있는 것, 하나는 우리가 생성한 것이다.
-
-우리가 만든 것이 무엇인지 알려면 ``네트워크 토폴로지`` 에서 생성한 router를 클릭하면 해당 router의 이름이 나온다.
-
-``$ ip netns exec 생성된-router-이름 /bin/bash`` : 우리가 생성한 router 안의 network namespace에서 /bin/bash를 실행시킨다.
-
-즉 docker로 생각한다면 container안에 들어가서 bash를 실행하겠다는 의미이다.
-
-위의 명령어를 실행하면 namespace안으로 들어오게된다.
-
-+) 확인해보려면?
-
-현재 namespace에서 ``$ ip netns`` 를 실행했을 때 보여지는 결과값
-
-``exit`` 을 하고 host환경에서 ``$ ip addr`` 를 실행했을 때 보여지는 결과값
-
-이렇게 보면 둘의 결과값이 다르다.
-
-namespace안에서 ``$ ip addr`` 을 실행했을 때, gateway의 ip( ``172.31.0.1`` )가 잡혀있다.
-
-해당 ip로 ping을 실행하면 ping이 나가게 된다.
-
-하지만 vm을 생성할 때 할당한 서브넷 pool (172.31.0.20, 172.31.0.200) 중 하나인 ``172.31.0.21`` 으로 실행하면
-
-``보안그룹이 막혀있기 때문`` 에 vm으로 접속되지않고, ping도 실행되지 않는다.
-
-5. 보안그룹 설정
-
-보안그룹에 가서 설정을 진행한다. (설정하기 전에 보면 outbound는 있는데 inbound는 되어있지 않을 것을 볼 수 있다.)
-
-  - 규칙추가
-    
-    - 모든 ICMP
+      **DHCP 설정** & **서브넷 변경**
       
-      - 해당 규칙을 추가하면 해당 172.31.0.21 로 ping을 날렸을 때 ping이 가는 것을 볼 수 있다.
-      
-      - 하지만 ``$ ssh cirros@172.31.0.21`` 는 되지 않는다. 왜냐하면 ICMP 규칙만 추가했기 때문이다.
-    
-    - 모든 TCP.
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/7.png
+    :width: 100px
+    :align: center
+    :height: 200px
 
-위의 두개의 규칙을 추가하면 접속이 가능하다!
+ 2. 인스턴스 생성
 
-접속할 때는 생성한 key를 이용해서 600 권한을 주고 접속하면 된다.
+     - 인스턴스 시작
 
-``$ ssh -i key.pem cirros@172.31.0.21`` 를 하면 접속이 가능하다.
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/8.png
+   :width: 100px
+   :align: center
+   :height: 200px
 
-``$ ifconfig`` 를 한 이후 ``172.31.0.21`` 가 보이면 성공이다.
+     - cirros 이미지 올리기
 
-하지만 사용자에게 vm을 생성해서 줬는데 자신이 하이퍼바이저에 들어와서 router ip를 찾아서 접속해라 라고 말할 수 없다.
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/9.png
+   :width: 100px
+   :align: center
+   :height: 200px
 
-따라서 floating ip를 붙여줘야한다.
+     - Flavor (알아서 설정하면 됨 - AWS 처럼!)
 
-7. floating ip 붙여주기
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/10.png
+   :width: 100px
+   :align: center
+   :height: 200px
 
-``인스턴스`` > ``해당 인스턴스 옆에 버튼을 클릭`` > ``유동 ip 연결`` > ``유동 ip가 없으면 + 클릭`` > ``public ip를 할당받음``
+     - 위에서 생성한 network로 올리기
 
-그럼 ip는 예를 들어 ``172.24.4.11`` 로 floating ip가 할당되고,
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/11.png
+   :width: 100px
+   :align: center
+   :height: 200px
 
-해당 vm에 외부접속을 할 수 있는 ``172.31.0.21`` 이 해당 floating ip와 연결된다.
+     - 키페어 생성
 
-이후에는 ``$ ssh -i key.pem cirros@172.24.4.11`` 로 접속이 가능하다.
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/12.png
+   :width: 100px
+   :align: center
+   :height: 200px
+
+     - 키 복사
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/13.png
+   :width: 100px
+   :align: center
+   :height: 200px
+
+   3. 라우터 생성
+
+     - 라우터 이름 & 네트워크 ( **public** )
+     
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/14.png
+   :width: 100px
+   :align: center
+   :height: 200px
+
+      - 라우터 인스턴스 추가
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/15.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      **생성한 라우터 추가**
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/16.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      4. 인스턴스 하드 리부팅
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/17.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      +) 인스턴스에 할당된 **ip 확인**
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/18.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      5. 인스턴스 연결해보기
+
+      ``$ vagrant ssh`` : ubuntu 실행
+
+      ``$ sudo su - stack`` : stack 실행
+
+      ``$ ping instance-ip`` : 위에서 확인 ip 로 ping을 날리면 연결이 되지 않음
+
+      ``$ ip netns`` : qdhcp 2개 qrouter 2개 > 생성한것 & 기존에 있던 것
+
+      ``$ sudo su`` : root 계정으로 (permission denied를 막기 위해)
+
+      ``$ ip netns exec qrouter-alsdfjasilfd /bin/bash`` : 위에서 확인한 qrouter 중 내가 생성한 router로 들어가면 생성한 instance로 들어가게됨 & vm안에서 bin/bash 실행
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/19.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      6. 인스턴스 안에서의 addr과 인스턴스 밖에서의 addr
+
+      ``$ ip addr`` 을 실행하면 인스턴스 안과 밖의 addr이 확연히 다르다는 것을 알 수 있다.
+
+      ``172.31.0.1/24`` 가 router의  gateway이다! (instance안에서 설정된 것을 볼 수 있다.)
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/20.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      7. instance안에서 vm으로 ping을 날리면 날아가지 않는다.
+
+      왜냐하면 보안그룹에서  outbound는 열려있는데 inbound가 열려있지 않기 때문이다.
+
+      ``보안 그룹`` > ``규칙 관리``
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/22.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      **모든 ICMP** : ping이 된다.
+
+      **모든 TCP** : ssh 연결이 가능하다.
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/23.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      8. floating ip 할당하기
+
+      - 유동 ip 할당
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/24.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      - 유동 ip가 없기 때문에 ``+`` 를 눌러 ip 할당받아야함
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/25.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      -  pool: public > ip 할당
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/26.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      - 유동 ip 할당
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/27.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      - 할당 완료!
+
+.. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/28.png
+    :width: 100px
+    :align: center
+    :height: 200px
+
+      9. 접속하기
+
+      접속할 때는 생성한 key를 이용해서 ``vim key.pem`` 을 생성하고
+
+      ``$ chmod 600 key.pem`` : 600 권한을 주고 접속하면 된다.
+
+      ``$ ssh -i key.pem cirros@유동-ip`` 를 하면 접속이 가능하다.
 
 +) 이후에 cirros가 아닌 ubuntu, centos 등 다양한 이미지를 올리고 싶을 때는 하드의 용량이 부족할 수 있다.
 
@@ -232,28 +318,28 @@ vnet1, vnet2는 게스트가 사용하는 가상네트워크 인터페이스로 
 - IP 범위
 
   - 사설IP 범위
-    
+
     - A class 1개 : 10.0.0.0 - 10.255.255.255 (8 bit prefix)
-    
+
     - B class 16개 : 172.16.0.0 - 172.31.255.255 (12 bit prefix)
-    
+
     - C class 256개 : 192.168.0.0 - 192.168.255.255 (16 bit prefix)
 
   - 공인IP 범위
-    
+
     - Class A : 1 ~ 126 (각각 16M개의 호스트)
-    
+
     - Class B : 128 ~ 191 (각각 65,536개의 호스트)
-    
+
     - Class C : 192 ~ 223 (각각 356개의 호스트)
-    
+
     - Class D : 224 ~ 239 (멀티캐스트 모드)
-    
+
     - Class E : 240 ~ 255 (나중의 위해 예약되었음)
-    
+
     - 127.0.0.1 은로컬 커퓨터가 자기자신을 표현하는 루프백 주소이다.
 
-- `DHCP <http://jwprogramming.tistory.com/35>`_ 
+- `DHCP <http://jwprogramming.tistory.com/35>`_
 
   - 네트워크 안에 컴퓨터에 자동으로 네임 서버 주소, IP주소, 게이트웨이 주소를 할당해주는 것을 의미하고, 해당 클라이언트에게 일정 기간 임대를 하는 동적 주소 할당 프로토콜이다.
 
@@ -262,9 +348,9 @@ vnet1, vnet2는 게스트가 사용하는 가상네트워크 인터페이스로 
   - ``DHCP 클라이언트`` 는 시스템이 시작되면 DHCP 서버에 자신의 시스템 ip 주소를 요청하여 주소를 부여받으면 TCP/IP가 초기화되고, 다른 host와 TCP/IP를 이용해 통신할 수 있다.
 
 - 네임 서버
-  
+
   - 도메인에 할당하는 ip를 알려주는 서비스
-  
+
   - name server가 죽으면 ip로는 접근이 가능하지만 domain으로는 접근 불가능
 
 - ICMP
@@ -272,15 +358,15 @@ vnet1, vnet2는 게스트가 사용하는 가상네트워크 인터페이스로 
   - ICMP는 TCP/IP에서 IP 패킷을 처리할 때 **발생되는 문제를 알려주는 프로토콜** 이다.
 
   - IP에는 오로지 패킷을 *목적지에 도달* 시키기 위한 내용들로만 구성되어 있다. 만일 정상적으로 패킷이 목적지에 도달하지 않았을 때, 이에 관련된 에러 처리를 진행해야하는데 IP에는 그러한 에러 처리법이 있지 않다. 따라서 ip의 이러한 단점을 위해 ICMP가 존재한다.
-  
+
   - ICMP는 에러상황이 발생할 경우 IP헤더에 기록되어 있는 출발지 호스트로 이러한 **에러에 대한 상황을 보내주는 역할을 수행** 하게 된다.
 
 - 하이퍼바이저
-  
+
   - 호스트 컴퓨터 1대에서 다수의 운영체제를 동시에 실행할 수 있도록 해주는 가상 플랫폼 기술이고 가상 머신 모니터라고도 부른다.
-  
+
   - 높은 수준의 관리 모니터링 도구에 대한 인터페이스 뿐만 아니라 OS 간 방해를 막기 위해 vm에 대한 자원 및 메모리 할당 등을 처리한다.
 
 - gateway
-  
+
   - 현재 사용자가 위치한 네트워크에서 다른 네트워크로 이동하기 위해 반드시 거쳐야하는 거점
