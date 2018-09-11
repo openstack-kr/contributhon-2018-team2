@@ -8,7 +8,7 @@ horizon (=Dashboard)
 
 **1. 관리자**
 
-1. 네트워크
+* 네트워크
 
 네트워크에 들어가면 기본적으로 2개의 네트워크가 생성되어있다.
 
@@ -32,8 +32,6 @@ public은 기본적으로 ``172.24.4.0/24`` 즉 C class 대역으로 생성되�
 
 즉 host안에서 가상으로 privider network를 만들어 놓은 상태이다. 물론 외부에서 접속할 수 없다.
 
-2. router
-
 **2. 프로젝트**
 
 이 부분이 admin이라는 계정에서 사용할 수 있는 프로젝트이다.
@@ -48,7 +46,7 @@ Vm에 network 설정하기
   2. vm과 가상네트워크 연결
   3. router에 public ip 연결 :  외부에서 접속하기 위하여 public ip를 붙여야하는데 그 ip를 붙이기위해 router를 사용
 
-1. network 생성
+**1. network 생성**
 
 - 네트워크 토폴로지 확인 & 네트워크 생성 버튼 클릭
 
@@ -92,16 +90,16 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-      **DHCP 설정** & **서브넷 변경**
+**DHCP 설정** & **서브넷 변경**
       
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/7.png
     :width: 100px
     :align: center
     :height: 200px
 
- 2. 인스턴스 생성
+**2. 인스턴스 생성**
 
-  - 인스턴스 시작
+- 인스턴스 시작
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/8.png
    :width: 100px
@@ -143,7 +141,7 @@ Vm에 network 설정하기
    :align: center
    :height: 200px
 
-3. 라우터 생성
+**3. 라우터 생성**
 
 - 라우터 이름 & 네트워크 ( **public** )
      
@@ -166,7 +164,7 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-4. 인스턴스 하드 리부팅
+**4. 인스턴스 하드 리부팅**
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/17.png
     :width: 100px
@@ -180,7 +178,7 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-5. 인스턴스 연결해보기
+**5. 인스턴스 연결해보기**
 
 ``$ vagrant ssh`` : ubuntu 실행
 
@@ -192,27 +190,27 @@ Vm에 network 설정하기
 
 ``$ sudo su`` : root 계정으로 (permission denied를 막기 위해)
 
-``$ ip netns exec qrouter-alsdfjasilfd /bin/bash`` : 위에서 확인한 qrouter 중 내가 생성한 router로 들어가면 생성한 instance로 들어가게됨 & vm안에서 bin/bash 실행
+``$ ip netns exec qrouter-alsdfjasilfd /bin/bash`` : 위에서 확인한 qrouter 중 내가 생성한 router로 들어가면 namespace 안으로 들어가게됨 & namespace 안에서 bin/bash 실행
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/19.png
     :width: 100px
     :align: center
     :height: 200px
 
-6. 인스턴스 안에서의 addr과 인스턴스 밖에서의 addr
+**6. namespace 안에서의 addr과 namespace 밖에서의 addr**
 
-``$ ip addr`` 을 실행하면 인스턴스 안과 밖의 addr이 확연히 다르다는 것을 알 수 있다.
+``$ ip addr`` 을 실행하면 namespace 안과 밖의 addr이 확연히 다르다는 것을 알 수 있다.
 
-``172.31.0.1/24`` 가 router의  gateway이다! (instance안에서 설정된 것을 볼 수 있다.)
++) namespace 안에서 router의  gateway인 ``172.31.0.1/24`` 가 설정된 것을 볼 수 있다. 
 
 .. image:: https://github.com/Tirrilee/TechTalk/blob/master/img/20180906_contributhon/20.png
     :width: 100px
     :align: center
     :height: 200px
 
-7. instance안에서 vm으로 ping을 날리면 날아가지 않는다.
+**7. instance ip로 ping을 날리면 날아가지 않는다.**
 
-왜냐하면 보안그룹에서  outbound는 열려있는데 inbound가 열려있지 않기 때문이다.
+왜냐하면 ``보안 그룹`` 에서  outbound는 열려있는데 inbound가 열려있지 않기 때문이다.
 
 ``보안 그룹`` > ``규칙 관리``
 
@@ -230,7 +228,7 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-8. floating ip 할당하기
+**8. floating ip 할당하기**
 
 - 유동 ip 할당
 
@@ -267,19 +265,23 @@ Vm에 network 설정하기
     :align: center
     :height: 200px
 
-9. 접속하기
+**9. 접속하기**
 
 접속할 때는 생성한 key를 이용해서 ``vim key.pem`` 을 생성하고
 
-``$ chmod 600 key.pem`` : 600 권한을 주고 접속하면 된다.
+``$ chmod 600 key.pem`` : 600 권한을 준다.
 
 ``$ ssh -i key.pem cirros@유동-ip`` 를 하면 접속이 가능하다.
+
+``$ ssh -i key.pem cirros@instance에-할당된-ip`` 를 해도 접속이 가능하다.
 
 +) 이후에 cirros가 아닌 ubuntu, centos 등 다양한 이미지를 올리고 싶을 때는 하드의 용량이 부족할 수 있다.
 
 그때는 vm을 삭제하고, 용량을 변경할 수 있다. (`Vagrant Size 변경하기 <https://github.com/sprotheroe/vagrant-disksize>`_)
 
-+) 알아야할 지식
+------------
+알아야할 지식
+------------
 
 - 리눅스 브릿지
 
