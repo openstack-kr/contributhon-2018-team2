@@ -1,0 +1,133 @@
+Openstack 2차 모임(2018/09/06)
++++++++++++++++++++++++++++++
+
+* 진행사항
+
+  * Git & Github
+  * Gerrit & Sandbox
+
+
+Git & Github
+=============
+
+* Setting
+
+ 1. ssh-keygen -t rsa -> ~/.ssh/id_rsa*  id_rsa 비밀키 id_ras.pub 공개키
+ 2. 공개키를 github repo나 계정 ssh에 등록을 한다.
+
+  ::
+
+    git log    ->  현재까지 commit 된 상태를 보여준다.
+    git log -p ->  업데이트된 부분을 보여준다.
+    git status ->  add된 commit을 보여준다
+    git diff 버전..버전 -> 버전간 변화된 부분을 보여준다.
+    git config user.name "SeongHyo"
+    git config user.email "abc9023@naver.com"
+    git config --list
+
+* git Remote
+
+ 1. 원격저장소는 로컬이 아닌 외부 다른 위치에 존재하는 git 저장소이다.
+ 2. clone을 해서 작업할 수 있는 공간을 origin, OpenSource에서 실제 기여하는 저장소는 upstream이다.
+
+   ::
+
+    git remote -v             -> remote들을 보여준다
+    git remote add upstream(저장소) github주소
+    git pull upstream         -> 최신 업데이트
+    git pull master           
+    git push origin master    -> 내 저장소에 업로드
+    git checkout -b 20180906  -> branch를 로컬에 (master를 복사)
+
+* fork한 repo를 이용해 pull & request 하는 방법
+
+ 1. fork 한 것은 10개의 commit만 있고 원래 것은 19개의 commit 있다
+ 2. 최신 commit까지 가지고 오고 싶은 경우 ``remote add upstream [버전 원래저장소의 ssh주소]``
+ 3. ``git push origin master`` 하면 19개로 업데이트 된다.
+
+ 권장사항::
+
+  git checkout -b 201809 -> 새로운 브랜치를 로컬에 만듬
+  git branch -a          -> 모든 브랜치를 볼 수 있음
+  git push origin 201809:이름
+
+ master는 그대로 있는 상태에서 새로운 branch와 함께 업로드 된다. ( github 안에 branch에서 pull request 요청(merge))
+
+* fork한 repo를 이용해 pull & request 하는 방법
+
+ 1. fork 한 것은 10개의 commit만 있고 원래 것은 19개의 commit 있다
+ 2. 최신 commit까지 가지고 오고 싶은 경우 ``remote add upstream [버전 원래저장소의 ssh주소]``
+ 3. ``git pull upstream master''
+ 4. ``git push origin master`` 하면 19개로 업데이트 된다.
+
+
+* review가 있을때 수정하는 방법 2가지
+
+ 1. 파일 수정 후 ``git push origin 20180906:0906(아까올린 브랜치)`` commit이 하나 추가되는 방법
+ 2. ``git commit -a amend`` 마지막 commit을 수정, 이때 같은 아이디값을 가지므로 ''--force`` 로 push
+
+Gerrit & sandbox
+=================
+
+* sandbox
+
+ 1. openstack 컨트리뷰트를 연습할 수 있는 저장소, ``clone git://git.openstack.org/openstack-dev/sandbox''
+ 2. https://review.openstack.org/#/admin/projects/openstack-dev/sandbox 도 확인할 수 있다
+
+* Gerrit
+
+ 1. review.openstack.org는 gerrit code review를 사용한다.
+ 2. gerrit은 하나의 commit 단위로 리뷰, gerrit은 fatch 단위로 revision
+
+* Contribution 하는 방법(Test)
+
+ 1. launchpad.net/openstack-dev-sandbox에서 버그리포트 작성
+ 2. https://bugs.launchpad.net/openstack-dev-sandbox/+bug/1792344, URL 마지막에 번호로 식별
+ 3. ``git review -s`` 를 통해 gerrit 싱크를 맞춘다
+ 4. Enter your gerrit username: openstack에서 profile에 등록한 이름
+ 5. Could not connect to gerrit. 발생할 경우 ssh키 등록이 잘되어있는지 확인한다.
+ 6. 작업 후 commit 하면 ``git log`` 에 change-id가 생긴다
+ 7. ``git review``
+
+ ::
+
+  [root@q352-3202 /home/pusher/sdbox/sandbox]# git review
+  remote: Resolving deltas: 100% (1/1)
+  remote: Processing changes: new: 1, refs: 1, done
+  remote:
+  remote: New Changes:
+  remote:   https://review.openstack.org/602356 Add first commit
+  remote:
+  To ssh://seonghyo@review.openstack.org:29418/openstack-dev/sandbox.git
+   * [new branch]      HEAD -> refs/publish/master/bug/1792344
+
+   https://review.openstack.org/602356에 Fetch 한것이 올라게된다.
+
+* reply 하는 법
+
+ 1. https://review.openstack.org/의 버그리포트에서 reply를 누르면 창이 하나가 나온다. 여기서 code-review과 workflow의 점수는
+
+  ::
+
+   -2 이 fetch는 안된다
+   -1 변경을 해야될 것 같다
+   +2 Core review로서 merge 할 만큼 괜찮다
+
+   -1 지금할 만한 일은 아니다 or 이 fetch는 완성 상태가 아니므로 review를 받고 싶다.
+   +1 merge
+
+ 2. 관례적으로 2명의 +2가 있을때 fetch를 merge 시킨다.
+
+* 수정하는 법
+
+ 1. ``git checkout -b 이름`` branch를 만든다
+ 2. ``git pull origin master`` 최신 업데이트 된 것을 가져온다.
+ 3. 수정 후에 ``it commit -a --amend `` (gerrit은 하나의 commit을 가질때 amend 해야한다.)
+ 4. ``git review`` https://review.openstack.org/602359처럼 새로운 URL이 생기고 여기서 변화된 내용을 확인 가능하다
+
+* 다른 곳에서 작업하는 경우
+
+ 1. ``git clone 주소``
+ 2. ``git review -s``싱크 설정
+ 3. ``git review -d [URL 뒤에 있는 번호]`` 이 fetch를 가져와서 로컬에 branch를 자동으로 생성
+
