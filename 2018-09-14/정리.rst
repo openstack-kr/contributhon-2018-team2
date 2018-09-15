@@ -1,0 +1,130 @@
+=============================
+2018-09-16 tox, sphinx, latex
+=============================
+
+- python virtualenv : python 가상환경
+
+- _'tox <https://tox.readthedocs.io/en/latest/>'_
+
+: 가상화 환경 설치를 도와주는 것이다 ( ``$ pip install tox`` 로 설치할 수 있다.)
+
+예를 들어
+
+```
+# content of: tox.ini , put in same dir as setup.py
+[tox]
+envlist = py27,py36
+
+[testenv:env_name]
+deps = pytest       # install pytest in the virtualenv where commands will be executed
+commands =
+    # whatever extra steps before testing might be necessary
+    pytest          # or any other test runner that you might use
+```
+
+이라는 tox.ini 파일이 생성되면
+
+``tox -env_name``
+
+을 실행하면 ``.tox/env_name`` 에 설치되면서
+
+설치된 파일로 이동하여 ``source bin/activate`` 를 실행하면  ``env_name`` 이라는 가상환경이 실행된다.
+
+
+- sphinx
+
+  - _'i18n <https://github.com/openstack/i18n/>'_ 에가면 ``source`` 라는 폴더 안에 ``config.py`` 라는 파일이 있고, 이 파일에는 ``.rst`` 문서에 대한 기본적인 정의를 해준다.
+  - _'build-docs.sh <https://github.com/openstack/i18n/blob/master/tools/build-docs.sh>'_ 에 sphinx 관련 명령어가 있다.
+
+``$ sphinx-build -a -W -b html rst-문서가-있는-폴더경로 doc-name`` : 가상환경에 있는 rst 파일을 doc-name 폴더를 만들어서 html 파일로 생성
+
+``$ sphinx-build -a -W -b pdf rst-문서가-있는-폴더경로 doc-name`` : 가상환경에 있는 rst 파일을 doc-name 폴더를 만들어서 pdf 파일로 생성
+
+- ``latex format`` : 문서 편집 언어 중 하나로 ``.tex`` 확장자를 가지고 있다.
+  - _'latex 문법 <https://github.com/STOM-Group/LaTeX-Paper-Template>'_
+  - _'latex 입문 <http://t-robotics.blogspot.com/2016/02/latex.html#.W51IWpMzZ24>'_
+
+- _'build_latex_pdf.sh <https://github.com/openstack/nova/blob/master/tools/build_latex_pdf.sh>'_
+
+
+======================
+2018-09-16 multi node
+======================
+
+------------------------
+Virtual Box Network 종류
+------------------------
+
+1. _'네트워크 종류와 설정 방법 <https://printf.kr/archives/285>'_
+
+  - NAT
+    - vm이 외부 네트워크에 접근할 수 있는 가장 간단한 방법
+    - Host/Guest에 어떠한 설정을 할 필요도 없기 때문에 VirtualBox에서 VM을 생성하면 기본적으로 attach
+    - VM에 NAT interface를 처음으로 붙이게 되면 ``10.0.2.0/24`` 대역이 그 다음에는 ``10.0.3.0/24`` 대역이 할당
+    - 기본적으로 10.0.2.0/24 대역으로 할당되고, VM에는 ``10.0.2.15`` 가 부여되고, 기본 게이트웨이는 ``10.0.2.2`` 가 된다.
+    - 여러개의 VM을 만들고 NAT를 붙이더라도 모두 동일하게 10.0.2.15를 가지게 된다.
+
+  - NAT network
+    - 공유기와 같은 환경을 만드는 것
+    - 여러 VM을 같은 네트워크에 속하게 하고 싶고 모두 인터넷이 가능하게 하고 싶을 때 사용
+    - ``virtualbox 설정`` > ``Network`` > ``NAT network``
+
+  - Bridge Network
+    - Bridge Network는 Virtualbox가 host에 있는 network device를 직접적으로 사용하는 네트워크
+    - host가 사용하는 network 환경을 그대로 이용할 수 있으며, VM이 host와 같은 물리적인 네트워크에 존재
+    - 단 OS X와 Linux에서는 무선 네트워크에 대해서 Bridge Network 사용이 제한됨
+
+  - Internal Networking
+    - NAT Networking 과 같이 Virtualbox내에서 완벽한 사설망을 구축할 수 있다는 점에서 동일하지만, 인터넷 연결이 되지 않는 점에서 다르다.
+    - internal Networking으로 할당된 IP로는 Host에서 접근이 불가능. 오직 같은 internal Networking으로만 연결된 VM들간에 통신이 가능
+    - internal Networking을 생성하는 방법은 terminal에서만 가능.
+
+  - Host-Only networking
+    - internal networking + host와의 통신
+    - virtualbox를 사용하는 사용자들이 host에서 vm에 접속하고 싶을 때 사용
+    - host-only networking은 OS X의 경우 기본적으로 6개가 생성되어있는데 이를 이용할 수도 있고, NAT Networking에서 확인한 환경설정 화면에서 Host-Only Network로 들어가서 추가로 생성할 수 있다.
+
+
++) 추가
+
+  - Virtual Box는 하나의 VM당 최대 4개의 Network 가상 인터페이스를 만들 수 있음
+
+
+2. Flat Network
+
+- 펼쳐진 네트워크라고 해서 예를 들어 openstack인데 vm과 실제 network가 같은 환경에 있게 만들게 하는 것을 의미한다.
+- neutron이 아닌 nova network를 이용하여 Openstack Network를 구성
+- 가장 단순한 network 구성
+  - 단일 NC로 구성 가능
+  - VLAN 없음
+- POC Setup 개발용으로 쓰임
+
+- Flat Network 종류
+  - 단일 NIC & All in one
+사진~!!!!!!
+
+  - 단일 NIC & Multi Node
+사진~~~!!!!!
+    - ``br100 (eth0)`` : 호스트에 연결된 네트워크위에 nova-network가 가상 네트워크를 만들어줌, 즉 터널링을 함
+      - ``VM`` > ``가상 네트워크`` > ``nova-network`` > ``외부와 통신``
+      - VM은 가상네트워크에 속해있기 때문에  VM에서 바로 나가지 못한다.
+      - 클라우드 컴퓨팅에 tenant가 있고 tenant 별로 네트워크를 분리시킬수 있지만, 여기서는 그렇게 하지 못함. Flat Network이기 때문에 VM들에게 다 동일한 Network 환경이 있음
+
+  - 다중 NIC & Multi Node
+    - ``eth0`` : VM들 간의 네트워크 / ``eth0`` : host 통신 & 인터넷
+    - ``VM`` > ``가상 네트워크`` > ``controller`` > ``외부``
+
+- 현재 구성할 네트워크 구성도
+사진~~~!!!!
+  - ``eth1`` : VM들간의 통신 / ``eth0`` : 인터넷을 쓰기 위함
+
+- 실습
+  - Controller
+    - Vagrant의 private network == Virtual Box의 host-only network
+    - Controller에는 ``nova-compute`` 이외에는 모두 enable & Compute에는 ``nova-compute`` 이외에는 모두 disable
+    - ``Flat-interface`` : 가상의 네트워크 -> VM들에게 할당을 해줄 ip
+    - ``enable_service n-cell`` : 설치될 것이 특정하게 정해져있지 않으면 기본적으로 모두 설치 & n-cell 추가 enable
+  - Compute
+    - ``ENABLED_SERVICES = `` : 이것만 enable
+
+- 만약 network를 더 고급화해서 사용하고 싶으면 _'devstack networking <https://docs.openstack.org/devstack/latest/networking.html>'_ 을 참고하면 된다!
