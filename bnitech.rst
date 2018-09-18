@@ -1,32 +1,32 @@
-[ÄÁÆ®¸®ºäÅæ 2018] ¿ÀÇÂ½ºÅÃ 2ÆÀ: »çÀü ¿ÀÇÁ ¸ğÀÓ (8/31 ±İ, Àú³á 7½Ã) ³»¿ë
+[ì»¨íŠ¸ë¦¬ë·°í†¤ 2018] ì˜¤í”ˆìŠ¤íƒ 2íŒ€: ì‚¬ì „ ì˜¤í”„ ëª¨ì„ (8/31 ê¸ˆ, ì €ë… 7ì‹œ) ë‚´ìš©
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Ä«Æä24 ¼­¹ö È®ÀÎ
-	* ¼­ºñ½º »ç¿ëÇöÈ²
+ì¹´í˜24 ì„œë²„ í™•ì¸
+	* ì„œë¹„ìŠ¤ ì‚¬ìš©í˜„í™©
 		* 1.234.**.***
-		* ¼­¹ö ÀÓ½ÃÁ¤º¸ È®ÀÎ
-			* °èÁ¤
+		* ì„œë²„ ì„ì‹œì •ë³´ í™•ì¸
+			* ê³„ì •
 				* root
-			* IPMI °èÁ¤
+			* IPMI ê³„ì •
 				* b******
-			* ÀÓ½Ã ºñ¹Ğ¹øÈ£
+			* ì„ì‹œ ë¹„ë°€ë²ˆí˜¸
 				* a*******
 
-    Varant·Î ¼³Ä¡
-	* ¾ğÁ¦µçÁö ºÎ½Ã°í Àç¼³Ä¡ ÇÒ¼ö ÀÖ´Â È¯°æ
+    Varantë¡œ ì„¤ì¹˜
+	* ì–¸ì œë“ ì§€ ë¶€ì‹œê³  ì¬ì„¤ì¹˜ í• ìˆ˜ ìˆëŠ” í™˜ê²½
 
-		* °¡»óÈ¯°æÀ» ¸¸µé¾î¼­ ¿ÀÇÂ½ºÅÃÀ» ¼³Ä¡ÇÑ´Ù.
-		* ±×·³ ¹ö¸®°í ´Ù½Ã »ı¼ºÇÏ±â ½¬¿öÁø´Ù.
-	* °¡»óÈ¯°æÀ» ÄÚµå·Î °ü¸®ÇÒ ¼ö ÀÖ°Ô ÇØÁØ´Ù.
-	* VMÀ» ¿©·¯°³ ¸¸µé¾î¼­ Å×½ºÆ®¿ëÀ» µû·Î °¡Áø´Ù.
+		* ê°€ìƒí™˜ê²½ì„ ë§Œë“¤ì–´ì„œ ì˜¤í”ˆìŠ¤íƒì„ ì„¤ì¹˜í•œë‹¤.
+		* ê·¸ëŸ¼ ë²„ë¦¬ê³  ë‹¤ì‹œ ìƒì„±í•˜ê¸° ì‰¬ì›Œì§„ë‹¤.
+	* ê°€ìƒí™˜ê²½ì„ ì½”ë“œë¡œ ê´€ë¦¬í•  ìˆ˜ ìˆê²Œ í•´ì¤€ë‹¤.
+	* VMì„ ì—¬ëŸ¬ê°œ ë§Œë“¤ì–´ì„œ í…ŒìŠ¤íŠ¸ìš©ì„ ë”°ë¡œ ê°€ì§„ë‹¤.
 
-¿ÀÇÂ½ºÅÃ ¼³Ä¡
+ì˜¤í”ˆìŠ¤íƒ ì„¤ì¹˜
 	* yum install -y binutils gcc make patch libgomp dkms glibc-headers glibc-devel kernel-headers kernel-devel
 
-		* ÇÊ¿äÇÑ ÆĞÅ°Áö ¼³Ä¡
+		* í•„ìš”í•œ íŒ¨í‚¤ì§€ ì„¤ì¹˜
 	* wget https://download.virtualbox.org/virtualbox/5.2.18/VirtualBox-5.2-5.2.18_124319_el6-1.x86_64.rpm
-	* rpm ¾ÈµÇ¼­¼³Ä¡
+	* rpm ì•ˆë˜ì„œì„¤ì¹˜
 
-		* ¾Æ´Ò¼öµµ
+		* ì•„ë‹ìˆ˜ë„
 
 			* wget https://rpmfind.net/linux/centos/6.10/os/x86_64/Packages/SDL-1.2.14-7.el6_7.1.i686.rpm
 			* wget https://rpmfind.net/linux/centos/6.10/os/x86_64/Packages/mesa-libGL-11.0.7-4.el6.i686.rpm
@@ -38,15 +38,15 @@
 	* rpm -ivh https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm
 
 
-	* ¾ÆÅ°ÅØÃ³
+	* ì•„í‚¤í…ì²˜
 
-		* PENCIL·Î ±×¸²
+		* PENCILë¡œ ê·¸ë¦¼
 
-			* »çÁø1
-	* root¿¡ contributon Æú´õ ¸¸µé°í
+			* ì‚¬ì§„1
+	* rootì— contributon í´ë” ë§Œë“¤ê³ 
 
-		* ¾È¿¡¼­
-		* vagrantfile¸¸µë
+		* ì•ˆì—ì„œ
+		* vagrantfileë§Œë“¬
 
                   .. code::
 
@@ -54,28 +54,28 @@
                       config.vm.box = "ubuntu/xenial64"
                     end
 
-		* ÀÛ¼º
+		* ì‘ì„±
 	* vagrant up
 	* vagrant status
 
-		* »óÅÂÈ®ÀÎ
+		* ìƒíƒœí™•ì¸
 	* vagrant ssh
 
-		* vatrantfileÀÌ ÀÖ´Â°÷¿¡¼­
-		* °¡»ó¸Ó½Å Á¢¼Ó
+		* vatrantfileì´ ìˆëŠ”ê³³ì—ì„œ
+		* ê°€ìƒë¨¸ì‹  ì ‘ì†
 	* vagrant destroy
 
-		* °¡»ó¸Ó½Å »èÁ¦
-	* vagrant up À¸·Î Àç»ı¼º °¡´É
+		* ê°€ìƒë¨¸ì‹  ì‚­ì œ
+	* vagrant up ìœ¼ë¡œ ì¬ìƒì„± ê°€ëŠ¥
 
-		* Ã³À½º¸´Ù ºü¸£°Ô µÈ´Ù.
-		* ·ÎÄÃ¿¡ ±âº» ÆÄÀÏµéÀÌ ´Ù¿îµÇ¾îÀÖ¾î¼­
-	* ubuntu (°¡»ó¼­¹ö) ¿¡¼­ ÀÛ¾÷
+		* ì²˜ìŒë³´ë‹¤ ë¹ ë¥´ê²Œ ëœë‹¤.
+		* ë¡œì»¬ì— ê¸°ë³¸ íŒŒì¼ë“¤ì´ ë‹¤ìš´ë˜ì–´ìˆì–´ì„œ
+	* ubuntu (ê°€ìƒì„œë²„) ì—ì„œ ì‘ì—…
 
 		* logout
 
-			* ³ª°¡±â
-	* vagrant ¼öÁ¤
+			* ë‚˜ê°€ê¸°
+	* vagrant ìˆ˜ì •
 
           .. code::
 
@@ -84,31 +84,31 @@
               vb.cpus = "6"
             end
 
-	* ÄÚµå·Î ÀÎÇÁ¶ó¸¦ ±¸¼ºÇÒ ¼ö ÀÖ´Ù.
-	* Á¶¼º¼ö´Ô ºí·Î±×¿¡¼­
+	* ì½”ë“œë¡œ ì¸í”„ë¼ë¥¼ êµ¬ì„±í•  ìˆ˜ ìˆë‹¤.
+	* ì¡°ì„±ìˆ˜ë‹˜ ë¸”ë¡œê·¸ì—ì„œ
 
 		* https://nhnent.dooray.com/share/posts/NksDQdLvSA-KRSuJra5jlA
-		* virtualbox ³×Æ®¿öÅ© ¼³¸í
+		* virtualbox ë„¤íŠ¸ì›Œí¬ ì„¤ëª…
 
-			* host-only networking ÀÌ¿ë
-		* vagrant networking ÅÇ
+			* host-only networking ì´ìš©
+		* vagrant networking íƒ­
 
 			* Forwarded port
 
 				* https://www.vagrantup.com/docs/networking/forwarded_ports.html
-		* vagrantfile ¼öÁ¤
+		* vagrantfile ìˆ˜ì •
 
 			*  config.vm.network "forwarded_port", guest: 80, host: 8080
-			* Ãß°¡
+			* ì¶”ê°€
 		* vagrant reload
-		* NAT IP´Â Á¢¼ÓºÒ°¡ µÊ
-	* snapshot Áö¿ø
-	* ÇÁ·ÎºñÁ®´×µµ °¡´É
-	* µµÄ¿´Â ÄÁÅ×ÀÌ³Ê
+		* NAT IPëŠ” ì ‘ì†ë¶ˆê°€ ë¨
+	* snapshot ì§€ì›
+	* í”„ë¡œë¹„ì ¸ë‹ë„ ê°€ëŠ¥
+	* ë„ì»¤ëŠ” ì»¨í…Œì´ë„ˆ
 
-		* vagrant´Â VM
-	* vm ÀÌ¸§µµ ÁöÁ¤ °¡´É
-	* ÃÖÁ¾ vagrantfile
+		* vagrantëŠ” VM
+	* vm ì´ë¦„ë„ ì§€ì • ê°€ëŠ¥
+	* ìµœì¢… vagrantfile
 
           .. code::
 
@@ -121,77 +121,77 @@
             config.vm.network "forwarded_port", guest: 80, host: 8080
             end
 
-	* devstack ¼³Ä¡
+	* devstack ì„¤ì¹˜
 
 		* https://docs.openstack.org/devstack/latest/
 
-			* download devstack ±îÁö ÁøÇà
+			* download devstack ê¹Œì§€ ì§„í–‰
 		* git branch -l
 
-			* ºê·£Ä¡È®ÀÎ
+			* ë¸Œëœì¹˜í™•ì¸
 			* git branch -r
-		* master ºê·£Ä¡¿¡¼­ ÇÏ¸é È®ÀÓ
+		* master ë¸Œëœì¹˜ì—ì„œ í•˜ë©´ í™•ì„
 		* git checkout stable/pike
 		* git status
 
-			* ºê·£Ä¡È®ÀÎ
-		* local.conf ÆÄÀÏ ¸¸µé±â
+			* ë¸Œëœì¹˜í™•ì¸
+		* local.conf íŒŒì¼ ë§Œë“¤ê¸°
 
 			* [[local|localrc]]
 			* HOST_IP=10.0.2.15
 
-				* ±âº» ÁöÁ¤
+				* ê¸°ë³¸ ì§€ì •
 			* ADMIN_PASSWORD=secret
 			* DATABASE_PASSWORD=$ADMIN_PASSWORD
 			* RABBIT_PASSWORD=$ADMIN_PASSWORD
 			* SERVICE_PASSWORD=$ADMIN_PASSWORD
 		* ./stack.sh
 
-			* ¿À·¡°É¸²
-			* ±âº»ÀûÀÎ ¸ğµç ¼­ºñ½º ¼³Ä¡
-		* °øÀÎ¾ÆÀÌÇÇ·Î Á¢¼Ó
+			* ì˜¤ë˜ê±¸ë¦¼
+			* ê¸°ë³¸ì ì¸ ëª¨ë“  ì„œë¹„ìŠ¤ ì„¤ì¹˜
+		* ê³µì¸ì•„ì´í”¼ë¡œ ì ‘ì†
 
 			* admin
 			* secret
 	* screen
 
-		* °¡»óÀÇ È­¸éÀ» ¶ç¿î´Ù
+		* ê°€ìƒì˜ í™”ë©´ì„ ë„ìš´ë‹¤
 		* yum install screen
 		* screen -S devstack
 		* ctrl+a,d
 		* screen -list
-		* screen -r ÀÌ¸§
-		* screen session Áö¿ì´Â ¹æ¹ıÀº ¾Æ·¡¿Í °°½À´Ï´Ù.
+		* screen -r ì´ë¦„
+		* screen session ì§€ìš°ëŠ” ë°©ë²•ì€ ì•„ë˜ì™€ ê°™ìŠµë‹ˆë‹¤.
 
-			* screen -X -S [¾ø¾Ö°í ½ÍÀº ¼¼¼Ç ¼ıÀÚ] quit
-		* ¹é±×¶ó¿îµå·Î ½ÇÇà°¡´ÉÇØÁü
-		* ÀÛ¾÷ÇÏ´ø È¯°æ À¯Áö½ÃÄÑÁÜ
+			* screen -X -S [ì—†ì• ê³  ì‹¶ì€ ì„¸ì…˜ ìˆ«ì] quit
+		* ë°±ê·¸ë¼ìš´ë“œë¡œ ì‹¤í–‰ê°€ëŠ¥í•´ì§
+		* ì‘ì—…í•˜ë˜ í™˜ê²½ ìœ ì§€ì‹œì¼œì¤Œ
 
-±êÇãºê ¿î¿µ
-	* rst ÆÄÀÏÇü½Ä »ç¿ë
+ê¹ƒí—ˆë¸Œ ìš´ì˜
+	* rst íŒŒì¼í˜•ì‹ ì‚¬ìš©
 
 		* https://www.slideshare.net/ianychoi/pycon-kr-2017-rst-python-openstack
 
-			* RST ¹®¼­ ÀÛ¼º ¼³¸í
+			* RST ë¬¸ì„œ ì‘ì„± ì„¤ëª…
 
-		* °³¹ß»Ó¸¸¾Æ´Ï¶ó ¹®¼­È­µµ Áß¿äÇÏ´Ù
+		* ê°œë°œë¿ë§Œì•„ë‹ˆë¼ ë¬¸ì„œí™”ë„ ì¤‘ìš”í•˜ë‹¤
 
 			* http://git.openstack.org/cgit
 			* https://docs.openstack.org/ko_KR/upstream-training/
 	* spec
 
-		* °³¹ßÇÏ°í½ÍÀº°Å Àû¾îµÎ´Â °÷
-	* ÀúÀå¼Ò¿¡ ¹®¼­ ÀÛ¼ºÇÏ´Â¹ı
+		* ê°œë°œí•˜ê³ ì‹¶ì€ê±° ì ì–´ë‘ëŠ” ê³³
+	* ì €ì¥ì†Œì— ë¬¸ì„œ ì‘ì„±í•˜ëŠ”ë²•
 
-		* ÀúÀå¼Ò¸¦ forkÇÑ´Ù.
-		* °èÁ¤¼±ÅÃ
-		* º¹Á¦µÇ¾î
-		* ¾²±â±ÇÇÑÀÌ »ı±ä´Ù.
+		* ì €ì¥ì†Œë¥¼ forkí•œë‹¤.
+		* ê³„ì •ì„ íƒ
+		* ë³µì œë˜ì–´
+		* ì“°ê¸°ê¶Œí•œì´ ìƒê¸´ë‹¤.
 		* $ ssh-keygen -t rsa -b 4096
 
-			* »ı¼ºµÈ Å° ±êÇãºê¿¡ ÀÔ·Â
+			* ìƒì„±ëœ í‚¤ ê¹ƒí—ˆë¸Œì— ì…ë ¥
 		* tect.ssut
 
-			* git ÀÛ¼º ÂüÁ¶
+			* git ì‘ì„± ì°¸ì¡°
 
 
