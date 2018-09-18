@@ -12,8 +12,9 @@ KOSSLAB 컨트리뷰톤 2018 - OpenStack Team
 .. toctree::
    :maxdepth: 2
 
-   bnitech/index
    Seonghyo/index
+   JaeYeonLee0621/index
+   Kang3498/index
 
 이 문서에서 검색
 ----------------
