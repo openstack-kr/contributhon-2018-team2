@@ -86,9 +86,9 @@ local에서 만든 branch의 내용을 github에는 새로운 branch_name으로 
 
 그리고 해당 branch로 pull request한 issue는 closed가 된다.
 
-========================================
+=========================================
 openstack sandbox에서 contribution 해보기
-========================================
+=========================================
 
 1. openstack-dev sandbox clone 하기
 
