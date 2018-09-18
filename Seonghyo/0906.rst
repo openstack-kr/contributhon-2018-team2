@@ -1,5 +1,5 @@
 Openstack 2차 모임(2018/09/06)
-+++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++
 
 * 진행사항
 
@@ -57,7 +57,7 @@ Git & Github
 
  1. fork 한 것은 10개의 commit만 있고 원래 것은 19개의 commit 있다
  2. 최신 commit까지 가지고 오고 싶은 경우 ``remote add upstream [버전 원래저장소의 ssh주소]``
- 3. ``git pull upstream master''
+ 3. ``git pull upstream master``
  4. ``git push origin master`` 하면 19개로 업데이트 된다.
 
 
@@ -71,7 +71,7 @@ Gerrit & sandbox
 
 * sandbox
 
- 1. openstack 컨트리뷰트를 연습할 수 있는 저장소, ``clone git://git.openstack.org/openstack-dev/sandbox''
+ 1. openstack 컨트리뷰트를 연습할 수 있는 저장소, ``clone git://git.openstack.org/openstack-dev/sandbox``
  2. https://review.openstack.org/#/admin/projects/openstack-dev/sandbox 도 확인할 수 있다
 
 * Gerrit
@@ -122,12 +122,12 @@ Gerrit & sandbox
 
  1. ``git checkout -b 이름`` branch를 만든다
  2. ``git pull origin master`` 최신 업데이트 된 것을 가져온다.
- 3. 수정 후에 ``it commit -a --amend `` (gerrit은 하나의 commit을 가질때 amend 해야한다.)
+ 3. 수정 후에 ``it commit -a --amend`` (gerrit은 하나의 commit을 가질때 amend 해야한다.)
  4. ``git review`` https://review.openstack.org/602359처럼 새로운 URL이 생기고 여기서 변화된 내용을 확인 가능하다
 
 * 다른 곳에서 작업하는 경우
 
  1. ``git clone 주소``
- 2. ``git review -s``싱크 설정
+ 2. ``git review -s``싱크 설정``
  3. ``git review -d [URL 뒤에 있는 번호]`` 이 fetch를 가져와서 로컬에 branch를 자동으로 생성
 

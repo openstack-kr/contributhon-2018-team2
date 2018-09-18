@@ -1,5 +1,5 @@
 [컨트리뷰톤 2018] 오픈스택 2팀: 사전 오프 모임 (8/31 금, 저녁 7시) 내용
-+++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 카페24 서버 확인
 	* 서비스 사용현황
 		* 1.234.**.***
@@ -48,9 +48,12 @@
 		* 안에서
 		* vagrantfile만듬
 
-			* Vagrant.configure("2") do |config|
-			*   config.vm.box = "ubuntu/xenial64"
-			* end
+                  .. code::
+
+                    Vagrant.configure("2") do |config|
+                      config.vm.box = "ubuntu/xenial64"
+                    end
+
 		* 작성
 	* vagrant up
 	* vagrant status
@@ -74,10 +77,13 @@
 			* 나가기
 	* vagrant 수정
 
-		* config.vm.provider "virtualbox" do |vb|
-		*       vb.memory = "6144"
-		*       vb.cpus = "6"
-		*   end
+          .. code::
+
+            config.vm.provider "virtualbox" do |vb|
+              vb.memory = "6144"
+              vb.cpus = "6"
+            end
+
 	* 코드로 인프라를 구성할 수 있다.
 	* 조성수님 블로그에서
 
@@ -104,14 +110,17 @@
 	* vm 이름도 지정 가능
 	* 최종 vagrantfile
 
-		* Vagrant.configure("2") do |config|
-		*   config.vm.box = "ubuntu/xenial64"
-		*   config.vm.provider "virtualbox" do |vb|
-		*       vb.memory = "6144"
-		*       vb.cpus = "6"
-		*   end
-		* config.vm.network "forwarded_port", guest: 80, host: 8080
-		* end
+          .. code::
+
+            Vagrant.configure("2") do |config|
+              config.vm.box = "ubuntu/xenial64"
+              config.vm.provider "virtualbox" do |vb|
+                  vb.memory = "6144"
+                  vb.cpus = "6"
+              end
+            config.vm.network "forwarded_port", guest: 80, host: 8080
+            end
+
 	* devstack 설치
 
 		* https://docs.openstack.org/devstack/latest/
