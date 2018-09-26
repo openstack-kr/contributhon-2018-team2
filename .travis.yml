@@ -1,0 +1,10 @@
+dist: xenial
+language: python
+python:
+  - "3.6"
+
+before_install:
+  - sudo apt install -y tox
+
+script:
+  - tox
