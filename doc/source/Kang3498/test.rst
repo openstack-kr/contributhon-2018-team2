@@ -59,6 +59,55 @@ Week 2
 	- 연결된 public ip를 통해 VM에 ssh로 접속 확인
 
 -----------------
+Week 3
+-----------------
+
+-----------------
+Week 4
+-----------------
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+1. API 접근 권한 획득
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - postman 프로그램에서 아래 내용을 http://116.125.120.18:8080/identity/v3/auth/tokens로 전송 ::
+
+      { "auth": { 
+        "identity": { 
+          "methods": ["password"],
+          "password": {
+            "user": {
+              "domain": {
+                "id": "default"
+              },
+              "name": "admin", 
+              "password": "secret"
+            }
+          }
+          },
+          "scope": { 
+            "project": { 
+              "domain": { 
+                "name": "default" 
+              }, 
+              "name":  "admin" 
+            } 
+          } 
+        }
+      }
+
+  - 전달받은 X-Auth Token 값을 Header에 함께 보내야 API를 사용할 수 있음. 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Image(glance) API 사용
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - `링크2 <https://developer.openstack.org/api-ref/image/>`_ 참조하여 API 사용 ::
+
+      ex) Create Image : http://116.125.120.18:8080/image/v2/images에 post로 값 전달. (Header에 X-Auth-Token값 필수) 
+
+
+-----------------
 
 .. [1] VM용량을 50Gb로 늘리지 않았을 때 인스턴스가 생성되지 않는 이슈 발생.
 .. [2] master branch는 가급적 유지하기 위함
