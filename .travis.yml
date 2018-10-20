@@ -4,6 +4,7 @@ python:
   - "3.6"
 
 before_install:
+  - sudo apt update
   - sudo apt install -y tox
 
 script:
