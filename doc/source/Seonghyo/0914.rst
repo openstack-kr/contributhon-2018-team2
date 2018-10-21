@@ -21,21 +21,21 @@ virtualenv
 
   1. ``yum install python-pip``
 
-    2. ``pip install virtualenv``
+  2. ``pip install virtualenv``
 
-    3. ``virtualenv [dir이름]`` ::
+  3. ``virtualenv [dir이름]`` ::
 
       [root@q352-3202 ~]# virtualenv test
       New python executable in /root/test/bin/python2.7
       Also creating executable in /root/test/bin/python
       Installing setuptools, pip, wheel...done.
 
-    4. ``source [dir이름]/bin/activate``하면 가상환경이 생성된다.
+  4. ``source [dir이름]/bin/activate``하면 가상환경이 생성된다. ::
 
         [root@q352-3202 ~]# source test/bin/activate
         (test) [root@q352-3202 ~]#
 
-    5. 빠져나올때는 ``deactivate`` 하면된다
+  5. 빠져나올때는 ``deactivate`` 하면된다
 
 tox
 ====
@@ -46,38 +46,41 @@ tox
 * 설치 & 사용법
 
 1. ``pip install tox``
-2. setup.py & tox.ini 생성 ::
 
-  import setuptools
-  setuptools.setup(
-    name="tox-test",
-    version="0.0.1",
-    author="",
-    author_email="",
-    description="A package for test using tox",
-    packages=setuptools.find_packages(),
-  )
+2. setup.py & tox.ini 생성(1) ::
 
-  [tox]
-  envlist = py27, py34, py35, py36, py37
-  [testenv:py27]
-  basepython = python2.7
-  [testenv:py34]
-  basepython = python3.4
-  [testenv:py35]
-  basepython = python3.5
-  [testenv:py36]
-  basepython = python3.6
-  [testenv:py37]
-  basepython = python3.7
-  [testenv]
-  deps = nose
-  commands = nosetests
+      import setuptools
+       setuptools.setup(
+        name="tox-test",
+        version="0.0.1",
+        author="",
+        author_email="",
+        description="A package for test using tox",
+        packages=setuptools.find_packages(),
+        )
+
+3. setup.py & tox.ini 생성(2) ::
+
+      [tox]
+      envlist = py27, py34, py35, py36, py37
+      [testenv:py27]
+      basepython = python2.7
+      [testenv:py34]
+      basepython = python3.4
+      [testenv:py35]
+      basepython = python3.5
+      [testenv:py36]
+      basepython = python3.6
+      [testenv:py37]
+      basepython = python3.7
+      [testenv]
+      deps = nose
+      commands = nosetests
 
 3. 오류 날 경우 ``pyenv virtualenv -p python[버전] [버전] py[버전]``
 
 4. ``tox`` 실행 ::
 
-  py37: commands succeeded
-  congratualations :)
+    py37: commands succeeded
+    congratualations :)
 
