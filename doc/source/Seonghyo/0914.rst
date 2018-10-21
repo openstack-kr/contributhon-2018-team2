@@ -4,7 +4,7 @@ Openstack 3차 모임(2018/09/14)
 * 진행사항
 
   * virtualenv
-  * tox
+  * 톡스
 
 virtualenv
 =============
@@ -32,14 +32,14 @@ virtualenv
       Also creating executable in /root/test/bin/python
       Installing setuptools, pip, wheel...done.
 
-  4. ``source [dir이름]/bin/activate``하면 가상환경이 생성된다. ::
+  4. ``source [dir이름]/bin/activate`` 하면 가상환경이 생성된다. ::
 
         [root@q352-3202 ~]# source test/bin/activate
         (test) [root@q352-3202 ~]#
 
   5. 빠져나올때는 ``deactivate`` 하면된다
 
-tox
+톡스
 ====
 
 * 정의
@@ -47,9 +47,9 @@ tox
 
 * 설치 & 사용법
 
-1. ``pip install tox``
+1. ``pip install 톡스``
 
-2. setup.py & tox.ini 생성(1) ::
+2. setup.py & 톡스.ini 생성(1) ::
 
       import setuptools
        setuptools.setup(
@@ -61,9 +61,9 @@ tox
         packages=setuptools.find_packages(),
         )
 
-3. setup.py & tox.ini 생성(2) ::
+3. setup.py & 톡스.ini 생성(2) ::
 
-      [tox]
+      [톡스]
       envlist = py27, py34, py35, py36, py37
       [testenv:py27]
       basepython = python2.7
@@ -81,7 +81,7 @@ tox
 
 3. 오류 날 경우 ``pyenv virtualenv -p python[버전] [버전] py[버전]``
 
-4. ``tox`` 실행 ::
+4. ``톡스`` 실행 ::
 
     py37: commands succeeded
     congratualations :)
