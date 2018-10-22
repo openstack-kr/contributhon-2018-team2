@@ -4,7 +4,7 @@ Openstack 3차 모임(2018/09/14)
 * 진행사항
 
   * virtualenv
-  * 톡스
+  * tox
 
 virtualenv
 =============
@@ -13,10 +13,8 @@ virtualenv
     독립적인 파이썬 가상환경을 만들어 주는 Tool
 
   NOTE
-    가상 환경에서 pip로 패키지를 설치하면 가상환경폴더의 
-    Lib/site-packages에 패키지를 저장
-    버전이 다른 호환성을 가진 스크립트들을
-    기본환경에서는 충돌이 발생한다.
+    가상 환경에서 pip로 패키지를 설치하면 가상환경폴더의 Lib/site-packages에 패키지를 저장
+    버전이 다른 호환성을 가진 스크립트들을 기본환경에서는 충돌이 발생한다.
 
 
 * 설치 & 사용법
@@ -39,7 +37,7 @@ virtualenv
 
   5. 빠져나올때는 ``deactivate`` 하면된다
 
-톡스
+tox
 ====
 
 * 정의
@@ -47,9 +45,9 @@ virtualenv
 
 * 설치 & 사용법
 
-1. ``pip install 톡스``
+1. ``pip install tox``
 
-2. setup.py & 톡스.ini 생성(1) ::
+2. setup.py & tox.ini 생성(1) ::
 
       import setuptools
        setuptools.setup(
@@ -61,9 +59,9 @@ virtualenv
         packages=setuptools.find_packages(),
         )
 
-3. setup.py & 톡스.ini 생성(2) ::
+3. setup.py & tox.ini 생성(2) ::
 
-      [톡스]
+      [tox]
       envlist = py27, py34, py35, py36, py37
       [testenv:py27]
       basepython = python2.7
@@ -81,7 +79,7 @@ virtualenv
 
 3. 오류 날 경우 ``pyenv virtualenv -p python[버전] [버전] py[버전]``
 
-4. ``톡스`` 실행 ::
+4. ``tox`` 실행 ::
 
     py37: commands succeeded
     congratualations :)
