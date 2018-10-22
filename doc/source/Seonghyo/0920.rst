@@ -70,8 +70,7 @@ Instance create(API's)
   + Keystone 서비스(반드시 거쳐야 하는 과정)
   + 응답으로 토큰을 발급
   + 이후 API 요청시 request header에 포함
-  + 엔드포인트는 API를 제공하는 서버의 접점을 
-    URI로 표현한것(기능별로 분리, 서버마다 다름)
+  + 엔드포인트는 API를 제공하는 서버의 접점을 URI로 표현한것(기능별로 분리, 서버마다 다름)
 
 2. https://{compute}/v2.1/{tenant_id}/images/{images_id} GET 방식 등 유효성 검증
 
@@ -116,7 +115,5 @@ Instance create(API's)
 
 4. https://{compute}/v2.1/{tenant_id}/servers/{server_id} GET 가상서버의 상태정보 확인
 
-  + 생성하는 시간이 걸리는 이유가 API요청이 접수된 것과
-    실제 가상서버 생성하는 처리가 비동기적으로
-    분리되어 실행되기 때문
+  + 생성하는 시간이 걸리는 이유가 API요청이 접수된 것과 실제 가상서버 생성하는 처리가 비동기적으로  분리되어 실행되기 때문
 
