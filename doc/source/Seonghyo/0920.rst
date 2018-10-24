@@ -1,0 +1,119 @@
+Openstack 4차 모임(2018/09/20)
++++++++++++++++++++++++++++++++++
+
+* 진행사항(API팀)
+
+  + Openstack API
+  + Token
+  + Instance create
+
+Openstack API
+=============
+
++ Openstack API들은 WEB REST API 형식을 사용하고 있음
+
++ REST API 보안은 Token 방식을 사용
+
++ API안에는 다음 Endpoint에 대한 정보도 가지고 있음
+
+Token 발급(client)
+===================
+
+1. http://1.234.63.160:8080/identity/v3/auth/tokens POST ::
+
+      { "auth": {
+          "identity": {
+            "methods": ["password"],
+            "password": {
+              "user": {
+                "name": "아이디",
+                "domain": { "id": "default" },
+                "password": "비밀번호"
+              }
+            }
+          }
+        }
+      }
+
+2. Resp으로 Header에 X-Subject-Auth로 문자열이 Token
+
+3. 발급받은 Token은 Header에 X-Auth-Token에 추가하여 사용한다.
+
+Token 발급(server)
+===================
+
+1. openstack rc file을 다운받는다.
+
+2. admin-rc.sh 파일을 만든다.
+
+3. ``admin-rc.sh`` 로 실행시키고 비밀번호를 입력한다 ::
+
+      vagrant@ubuntu-xenial:~$ . admin-rc.sh
+      e: command not found
+      Please enter your OpenStack Password for project admin as user admin:
+
+4. ``openstack token issue`` 로 토큰을 발급한다. ::
+
+      Field Value
+
+      id gAAAAABbo51_rR_CEPwj1r8UpbDABSq2BSsAIelhztj8_XpbLZSozdOFAgjv5Hjhl_
+      4W_Vtzp6JoMXC825KK-kReLl7kihLI3O4umt4BHFpNtSSETo-eqivrFFBKL0KOoeT7I
+      project_id 4ea188b1bada47909da8e516f2d16129
+
+5. Field에 id 부분을 Token으로 사용할 수 있다.
+
+Instance create(API's)
+========================
+
+1. https://{identity}/v2.0/tokens POST 방식 호출 {ID, PW}
+
+  + Keystone 서비스(반드시 거쳐야 하는 과정)
+  + 응답으로 토큰을 발급
+  + 이후 API 요청시 request header에 포함
+  + 엔드포인트는 API를 제공하는 서버의 접점을 URI로 표현한것(기능별로 분리, 서버마다 다름)
+
+2. https://{compute}/v2.1/{tenant_id}/images/{images_id} GET 방식 등 유효성 검증
+
+3. https://{compute}/v2.1/{tenant_id}/servers POST 방식
+
+  + request body에는 생성할 가상서버의 정보[이름, flavor, 이미지 등]
+  + 응답으로 가상서버의 UUID (만들어지지 않은 상태)
+  + 생성하라는 요청만 받은 단계 (내부적으로 상황판단 후 가상서버 생성) ::
+
+      {
+          "server" : {
+              "accessIPv4": "172.31.0.18",
+              "accessIPv6": "80fe::",
+              "name" : "new-server-test",
+              "imageRef" : "6663c1f7-b5c2-4e79-84b2-0e3f1c80bb3c",
+              "flavorRef" : "1",
+              "availability_zone": "nova",
+              "networks" : [{
+                  "uuid" : "af0294e9-d2e2-4843-b2ef-1d5b51829436"
+              }],
+              "OS-DCF:diskConfig": "AUTO",
+              "metadata" : {
+                  "My Server Name" : "Apache1"
+              },
+              "personality": [
+                  {
+                      "path": "/etc/banner.txt",
+                      "contents": ""
+                  }
+              ],
+              "security_groups": [
+                  {
+                      "name": "default"
+                  }
+              ],
+              "user_data" : "IyEvYmluL2Jhc2gKL2Jpbi9zdQplY2hvICJJIGFtIGluIHlvdSEiCg=="
+          },
+          "OS-SCH-HNT:scheduler_hints": {
+              "same_host": "48e6a9f6-30af-47e0-bc04-acaed113bb4e"
+          }
+      }
+
+4. https://{compute}/v2.1/{tenant_id}/servers/{server_id} GET 가상서버의 상태정보 확인
+
+  + 생성하는 시간이 걸리는 이유가 API요청이 접수된 것과 실제 가상서버 생성하는 처리가 비동기적으로  분리되어 실행되기 때문
+
