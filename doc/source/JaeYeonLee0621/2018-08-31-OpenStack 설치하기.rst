@@ -53,7 +53,8 @@ CentOS 서버에서 vm을 설치하여 그 곳에서 devstack을 설치하려고
 
 쉽게 만들고 쉽게 버릴 수 있으며 다시 그 상태를 쉽게 복원하는 "Code as a Infrastructure" 오픈소스 프로젝트.
 
-즉 ``VirtualBox`` 를 이용하면, 손쉽게 VM환경을 구축할 수 있지만 번거로운 작업이기 때문에 이를 자동화 해주기 위해 개발된 것이 ``Vagrant`` 이다.
+즉 ``VirtualBox`` 를 이용하면, 손쉽게 VM환경을 구축할 수 있지만 번거로운
+작업이기 때문에 이를 자동화 해주기 위해 개발된 것이 ``Vagrant`` 이다.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 2.2 VirtualBox & Vagrant 설치
@@ -125,7 +126,8 @@ Vagrantfile에는 아래와 같은 정보를 입력한다::
 
 ``$ sudo useradd -s /bin/bash -d /opt/stack -m stack`` : 개별의 stack user를 생성한다.
 
-``$ echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack`` : devstack은 system상으로 많은 변화를 만들것이니, sudo 권한을 준다.
+``$ echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack`` :
+devstack은 system상으로 많은 변화를 만들것이니, sudo 권한을 준다.
 
 ``$ sudo su - stack`` :  생성한 stack 으로 사용자를 변경한다.
 
@@ -173,13 +175,16 @@ Vagrantfile에는 아래와 같은 정보를 입력한다::
             collisions:0 txqueuelen:1000
             RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-여기서 ``enp0s3`` 를 보면 ``inet addr:10.0.2.15`` 로  ubuntu가 10.0.2.15 ip로 설정된 것을 볼 수 있다.
+여기서 ``enp0s3`` 를 보면 ``inet addr:10.0.2.15`` 로  ubuntu가 10.0.2.15
+ip로 설정된 것을 볼 수 있다.
 
 이 ip는 아래 local.conf의 HOST_IP에 작성해주면 된다.
 
 ``$ vim local.conf`` : local.conf 파일을 생성한다.
 
-  여기서 localrc, local.conf의 차이를 말씀해 주셨는데, localrc는 옛날 버전이며 local.conf는 최신 버전이라고 한다. local.conf만 생성했다고 해서 localrc가 생성되지 않는 것이 아니라 local.conf안에 localrc가 포함되어있다.
+  여기서 localrc, local.conf의 차이를 말씀해 주셨는데, localrc는 옛날 버전이며
+  local.conf는 최신 버전이라고 한다. local.conf만 생성했다고 해서 localrc가
+  생성되지 않는 것이 아니라 local.conf안에 localrc가 포함되어있다.
 
 local.config 내용 ::
 
